@@ -5,8 +5,11 @@ dotenv.config();
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URI);
-        console.log(process.env.MONGODB_URI);
+        await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            // Nếu bạn cần thêm tùy chọn cấu hình khác, bạn có thể thêm ở đây
+        });
         console.log('MongoDB connected @@...');
     } catch (error) {
         console.error('MongoDB connection failed:', error.message);
