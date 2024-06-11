@@ -16,5 +16,16 @@ const connectDB = async () => {
         process.exit(1);
     }
 };
+// Đường dẫn đến hình ảnh
+const imagePath = 'path/to/image.jpg';
+
+// Đọc hình ảnh từ ổ đĩa
+const image = imageProcessing.readImage(imagePath);
+
+// Chuyển đổi hình ảnh thành dữ liệu nhị phân
+const binaryData = imageProcessing.imageToBinaryData(image);
+
+// Lưu trữ hình ảnh vào MongoDB
+imageProcessing.saveImageToMongoDB(binaryData);
 
 module.exports = connectDB;
