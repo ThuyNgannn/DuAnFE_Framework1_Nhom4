@@ -20,6 +20,8 @@
                                 <a routerLink="/register" class="btn btn-primary">Đăng ký</a>
                             </div>
                         </form>
+                        <!-- Thêm phần tử HTML mới để hiển thị vai trò của người dùng -->
+                        <div *ngIf="role" class="alert alert-success mt-3">Vai trò của bạn: {{ role }}</div>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
 @Injectable({
@@ -18,8 +18,14 @@ export class AuthService {
   }
 
   login(user: any): Observable<any> {
-    return this.http.post(`${this.authUrl}/login`, user);
-  }
+    return this.http.post(`${this.authUrl}/login`, user)
+        .pipe(
+            tap((res: any) => {
+                sessionStorage.setItem('token', res.token);
+            })
+        );
+}
+
 
   logout(): void {
     localStorage.removeItem('token');
@@ -38,7 +44,7 @@ export class AuthService {
 
   // Lấy token từ localStorage
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   // Lấy thông tin profile từ server

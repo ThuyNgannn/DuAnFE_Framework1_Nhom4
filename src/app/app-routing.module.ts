@@ -14,27 +14,29 @@ import { RegisterComponent } from './register/register.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
-
 const routes: Routes = [
-  {path: '', component: ClientLayoutComponent, children:[
-    {path: '', redirectTo: '/home', pathMatch: 'full'},
-    {path: 'home', component: HomeComponent},
-    {path: 'about', component: AboutComponent},
-    {path: 'service', component: ServiceComponent},
-    {path: 'project', component: ProjectComponent},
-    {path: 'blog', component: BlogComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent},
-    {path: 'services/:id',component: ServiceDetailComponent},
-    {path: 'profile',  data: { expectedRole: 'user' }, component: ProfileComponent, canActivate: [AuthGuard]}
-
-  ]},
-  { path: 'admin', component: AdminLayoutComponent, children: [
-    // Đường dẫn cho trang quản trị với admin-layout
-    { path: '', redirectTo: '/admin/home', pathMatch: 'full' },
-    { path: 'home', component: AdminHomeComponent, canActivate: [AuthGuard] },
-      ]
-    }
+  {
+    path: '',
+    component: ClientLayoutComponent,
+    children: [
+      { path: '', redirectTo: '/login', pathMatch: 'full' }, // Thay đổi đường dẫn mặc định thành '/login'
+      { path: 'home', component: HomeComponent },
+      { path: 'about', component: AboutComponent },
+      { path: 'service', component: ServiceComponent },
+      { path: 'project', component: ProjectComponent },
+      { path: 'blog', component: BlogComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'services/:id', component: ServiceDetailComponent },
+      { path: 'profile', data: { expectedRole: 'user' }, component: ProfileComponent, canActivate: [AuthGuard] }
+    ]
+  },
+  {
+    path: 'admin',
+    component: AdminHomeComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'admin' }
+  }
 ];
 
 @NgModule({

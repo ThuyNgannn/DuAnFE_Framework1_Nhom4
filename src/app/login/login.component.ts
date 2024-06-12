@@ -10,9 +10,11 @@ import { Subscription } from 'rxjs';
 })
 export class LoginComponent {
   email: string = '';
-  password: string= '';
-  errorMessage: string= '';
+  password: string = '';
+  errorMessage: string = '';
+  role: string = ''; // Thêm biến role để lưu trữ vai trò của người dùng
   private loginSubscription!: Subscription;
+
   constructor(private authService: AuthService, private router: Router) {
     this.loginSubscription = new Subscription();
   }
@@ -20,8 +22,9 @@ export class LoginComponent {
   login() {
     this.loginSubscription = this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: (res: any) => {
-        if (res.role === 'admin') {
-          this.router.navigate(['/admin/home']); // Chuyển hướng đến trang home-admin nếu role là admin
+        this.role = res.role; // Lưu trữ vai trò của người dùng
+        if (this.role == 'admin') {
+          this.router.navigate(['/admin']); // Chuyển hướng đến trang home-admin nếu vai trò là admin
         } else {
           this.router.navigate(['/home']); // Chuyển hướng đến trang home nếu không phải là admin
         }
@@ -31,6 +34,7 @@ export class LoginComponent {
       }
     });
   }
+
   ngOnDestroy() {
     if (this.loginSubscription) {
       this.loginSubscription.unsubscribe();
