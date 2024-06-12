@@ -9,7 +9,7 @@ import jwt_decode from 'jwt-decode';
 })
 export class AuthService {
 
-  private authUrl = 'http://localhost:3000/api'; // Đảm bảo rằng đây là URL của server API
+  private authUrl = 'http://localhost:3000/api'; 
 
   constructor(private http: HttpClient, private router: Router) {}
 

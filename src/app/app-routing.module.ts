@@ -12,6 +12,7 @@ import { AuthGuard } from './auth.guard';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
     {path: 'blog', component: BlogComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'services/:id',component: ServiceDetailComponent}
+    {path: 'services/:id',component: ServiceDetailComponent},
+    {path: 'profile',  data: { expectedRole: 'user' }, component: ProfileComponent, canActivate: [AuthGuard]}
 
   ]},
   { path: 'admin', component: AdminLayoutComponent, children: [

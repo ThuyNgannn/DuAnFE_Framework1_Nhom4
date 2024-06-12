@@ -5,17 +5,18 @@
                 <div class="card">
                     <div class="card-header">Đăng nhập</div>
                     <div class="card-body">
-                        <form>
+                        <form (submit)="login()">
                             <div class="form-group mb-4">
-                                <label for="username"><i class="fas fa-user"></i> Tên đăng nhập</label>
-                                <input type="text" class="form-control" id="username" placeholder="Nhập tên đăng nhập">
+                                <label for="username"><i class="fas fa-envelope"></i> Tên đăng nhập</label>
+                                <input type="email" [(ngModel)]="email" class="form-control" name="email" id="email" placeholder="Nhập Email">
                             </div>
                             <div class="form-group mb-4">
                                 <label for="password"><i class="fas fa-lock"></i> Mật khẩu</label>
-                                <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                                <input type="password" [(ngModel)]="password" class="form-control" name="password" id="password" placeholder="Nhập mật khẩu">
                             </div>
                             <div class="d-flex justify-content-between">
                                 <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                                <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
                                 <a routerLink="/register" class="btn btn-primary">Đăng ký</a>
                             </div>
                         </form>

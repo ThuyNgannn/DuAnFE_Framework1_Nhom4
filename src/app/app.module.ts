@@ -18,6 +18,7 @@ import { ServiceDetailComponent } from './components/service-detail/service-deta
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AuthGuard } from './auth.guard';
     ClientLayoutComponent,
     LoginComponent,
     RegisterComponent,
-    ServiceDetailComponent
+    ServiceDetailComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
