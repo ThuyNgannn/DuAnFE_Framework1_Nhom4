@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="container-fluid pt-4 px-4">
+    <div class="row bg-secondary justify-content-center mx-0">
+      <div class="row g-4">
+        <div class="col-sm-12">
+          <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">Sửa Bài Viết</h6>
+            <form [formGroup]="editForm" (submit)="updatePost()">
+              <div class="mb-3">
+                <label for="id" class="form-label">ID</label>
+                <input type="text" class="form-control" id="id" [value]="postData._id" name="id" disabled>
+              </div>
+              <div class="mb-3">
+                <label for="title" class="form-label">Tiêu Đề</label>
+                <input type="text" class="form-control" id="title" formControlName="title">
+                <div *ngIf="formControls.title.invalid && (formControls.title.dirty || formControls.title.touched)" class="text-danger">
+                  <div *ngIf="formControls.title.errors.required">
+                    Tiêu đề không được để trống.
+                  </div>
+                  <div *ngIf="formControls.title.errors.minlength">
+                    Tiêu đề phải có ít nhất 10 ký tự.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="subtitle" class="form-label">Tiêu Đề Phụ</label>
+                <input type="text" class="form-control" id="subtitle" formControlName="subtitle">
+                <div *ngIf="formControls.subtitle.invalid && (formControls.subtitle.dirty || formControls.subtitle.touched)" class="text-danger">
+                  <div *ngIf="formControls.subtitle.errors.required">
+                    Tiêu đề phụ không được để trống.
+                  </div>
+                  <div *ngIf="formControls.subtitle.errors.minlength">
+                    Tiêu đề phụ phải có ít nhất 10 ký tự.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="content" class="form-label">Nội Dung</label>
+                <input type="text" class="form-control" id="content" formControlName="content">
+                <div *ngIf="formControls.content.invalid && (formControls.content.dirty || formControls.content.touched)" class="text-danger">
+                  <div *ngIf="formControls.content.errors.required">
+                    Nội dung không được để trống.
+                  </div>
+                  <div *ngIf="formControls.content.errors.minlength">
+                    Nội dung phải có ít nhất 10 ký tự.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="author" class="form-label">Tác Giả</label>
+                <input type="text" class="form-control" id="author" formControlName="author">
+                <div *ngIf="formControls.author.invalid && (formControls.author.dirty || formControls.author.touched)" class="text-danger">
+                  <div *ngIf="formControls.author.errors.required">
+                    Tác giả không được để trống.
+                  </div>
+                </div>
+              </div>
+              <div class="m-1 p-4 text-center">
+                <button type="submit" [disabled]="editForm.invalid" class="btn btn-primary btn-block">Sửa</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

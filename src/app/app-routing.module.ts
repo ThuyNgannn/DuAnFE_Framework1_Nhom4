@@ -1,58 +1,55 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { ServiceComponent } from './components/service/service.component';
-import { ProjectComponent } from './components/project/project.component';
-import { BlogComponent } from './components/blog/blog.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { ClientLayoutComponent } from './client-layout/client-layout.component';
-import { AdminLayoutComponent } from './admin/admin-layout/admin-layout.component';
-import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
-import { authGuard } from './auth.guard';
+import { HomeComponent } from './Admin/home/home.component';
+import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.component';
+
+import { ProductlistComponent } from './Admin/productlist/productlist.component';
+import { ProductAddComponent } from './Admin/product-add/product-add.component';
+import { ProductEditComponent } from './Admin/product-edit/product-edit.component';
+
+import { AcccoutlistComponent } from './Admin/acccoutlist/acccoutlist.component';
+
+import { PagenotfoundComponent } from './Admin/pagenotfound/pagenotfound.component';
+
+
+
+
+import { AuthGuard } from './auth-guard';
+import { AuthService } from './auth.service';
+
+
+
 const routes: Routes = [
-  {path: '', component: ClientLayoutComponent, children:[
-    {path: '', redirectTo: '/home', pathMatch: 'full'},
-    {path: 'home', component: HomeComponent},
-    {path: 'about', component: AboutComponent},
-    {path: 'service', component: ServiceComponent},
-    {path: 'project', component: ProjectComponent},
-    {path: 'blog', component: BlogComponent},
-    {path: 'login', component: ContactComponent}
-  ]},
-  { path: 'admin', component: AdminLayoutComponent, children: [
-    // Đường dẫn cho trang quản trị với admin-layout
-    { path: '', redirectTo: '/admin', pathMatch: 'full' },
-    { path: 'home', component: AdminLayoutComponent, canActivate: [authGuard] },
-        // {
-        //   path: 'products',
-        //   children: [
-        //     { path: '', component: AdminProductlistComponent },
-        //     { path: 'add', component: ProductAddComponent },
-        //     { path: 'edit', component: ProductEditComponent },
-        //   ]
-        // },
-        // {
-        //   path: 'category',
-        //   children: [
-        //     { path: '', component: CatelistComponent },
-        //     { path: 'add', component: CateAddComponent },
-        //     { path: 'edit', component: CateEditComponent },
-        //   ]
-        // },
-        // {
-        //   path: 'accout',
-        //   children: [
-        //     { path: '', component: AcccoutlistComponent },
-        //   ]
-        // },
-        // { path: '**', component: PagenotfoundComponent }
-      ]
-    }
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      {
+        path: 'products',
+        children: [
+          { path: '', component: ProductlistComponent },
+          { path: 'add', component: ProductAddComponent },
+          { path: ':id', component: ProductEditComponent },
+        ]
+      },
+      {
+        path: 'accout',
+        children: [
+          { path: '', component: AcccoutlistComponent },
+        ]
+      },
+      { path: '**', component: PagenotfoundComponent }
+    ]
+  }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+
+      @NgModule({
+      imports: [ RouterModule.forRoot(routes) ],
+      exports: [RouterModule],
+      providers: [AuthService,AuthGuard]
+      })
+      export class AppRoutingModule {
+      }

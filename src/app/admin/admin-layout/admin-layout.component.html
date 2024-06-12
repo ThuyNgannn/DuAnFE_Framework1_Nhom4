@@ -1,56 +1,79 @@
-<!DOCTYPE html>
-<html lang="vi">
+                <!-- head star -->
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-1 pb-4">
+            <nav class="navbar bg-secondary navbar-dark">
+                <a routerLink="/admin/home" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Admin</h3>
+                </a>
+                
+                <div class="navbar-nav w-100">
+                    <a routerLink="/admin/home" class="nav-item nav-link active">Bảng điều khiển</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            
+                            <a routerLink="/admin/products" class="dropdown-item">Danh sách</a>
+                            <a [routerLink]="['/admin/products', 'add']" class="dropdown-item">Thêm</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tài khoản</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a routerLink="/admin/accout"class="dropdown-item">Danh sách</a>
+                        </div>
+                    </div>
 
-<head>
-    <title>Đăng nhập quản trị | Website quản trị v2.0</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/src/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/src/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/src/assets/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="/src/assets/css-hamburgers/hamburgers.min.css">
-    <link rel="stylesheet" type="text/css" href="/src/assets/select2/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="/src/assets/css/util.css">
-    <link rel="stylesheet" type="text/css" href="/src/assets/css/main2.css">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-</head>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
 
-<body>
 
-    <app-admin-home></app-admin-home>
-    <script src="/src/assets/js/main.js"></script>
-    <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
-    <!-- <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script src="vendor/bootstrap/js/popper.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/select2/select2.min.js"></script> -->
-    <script type="text/javascript">
-        //show - hide mật khẩu
-        function myFunction() {
-            var x = document.getElementById("myInput");
-            if (x.type === "password") {
-                x.type = "text"
-            } else {
-                x.type = "password";
-            }
-        }
-        $(".click-eye").click(function () {
-            $(this).toggleClass("bx-show bx-hide");
-            var input = $($(this).attr("toggle"));
-            if (input.attr("type") == "password") {
-                input.attr("type", "text");
-            } else {
-                input.attr("type", "password");
-            }
-        });
-    </script>
-</body>
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                <a routerLink="/home" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <!-- <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a> -->
+                <div class="navbar-nav align-items-center ms-auto">
+                    
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <span class="d-none d-lg-inline-flex">Admin</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-white border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">Đăng xuất</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+            <!-- header end -->
 
-</html>
- 
+            <!-- content router star -->
+        <router-outlet></router-outlet>
+            <!-- content router end  -->
+
+            
+        <!-- Footer Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary rounded-top p-4">
+                <div class="row">
+                    <div class="col-12 col-sm-6 text-center text-sm-start">
+                        &copy; <a href="#">Nhóm 4 FrameWork1</a> All Right Reserved. 
+                    </div>
+                    <div class="col-12 col-sm-6 text-center text-sm-end">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        </div>
+        <!-- Content End -->

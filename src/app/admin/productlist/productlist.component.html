@@ -1,0 +1,40 @@
+<div class="container-fluid pt-4 px-4">
+    <div class="row vh-100 bg-secondary justify-content-center mx-0 bg-white">
+      <div class="row g-4 bg-white">    
+        <div class="col-12">
+          <div class="bg-secondary rounded h-100 p-4 bg-white">
+            <h6 class="mb-4 text-dark">Danh sách Bài Viết</h6>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Tiêu đề</th>
+                    <th scope="col">Tiêu đề phụ</th>
+                    <th scope="col">Nội dung</th>
+                    <th scope="col">Tác giả</th>
+                    <th scope="col">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let post of posts">
+                      <td>{{ post._id }}</td>
+                      <td>{{ post.title | slice:0:20 }}</td> <!-- Hiển thị chỉ 20 ký tự đầu tiên của tiêu đề -->
+                      <td>{{ post.subtitle | slice:0:20 }}</td> <!-- Hiển thị chỉ 20 ký tự đầu tiên của tiêu đề phụ -->
+                      <td>{{ post.content | slice:0:50 }}</td> <!-- Hiển thị chỉ 50 ký tự đầu tiên của nội dung -->
+                      <td>{{ post.author }}</td>
+                      <td>
+                        <button type="button" class="btn btn-info"><a [routerLink]="['/admin/products', post._id]"><i class="fa fa-edit"></i></a></button>
+                        <button type="button" class="btn btn-danger" (click)="deletePost(post._id)"><i class="fa fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                  
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

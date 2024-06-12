@@ -1,39 +1,45 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { AdminModule } from './admin/admin.module'; //
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { ServiceComponent } from './components/service/service.component';
-import { ProjectComponent } from './components/project/project.component';
-import { BlogComponent } from './components/blog/blog.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { ClientLayoutComponent } from './client-layout/client-layout.component';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { PostService } from './Admin/post.service';
+import { UserService } from './Admin/user.service';
+
+
+import { HomeComponent } from './Admin/home/home.component';
+import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.component';
+
+import { ProductEditComponent } from './Admin/product-edit/product-edit.component';
+import { ProductAddComponent } from './Admin/product-add/product-add.component';
+import { ProductlistComponent } from './Admin/productlist/productlist.component';
+
+import { AcccoutlistComponent } from './Admin/acccoutlist/acccoutlist.component';
+
+import { PagenotfoundComponent } from './Admin/pagenotfound/pagenotfound.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
+    ProductlistComponent,
     HomeComponent,
-    AboutComponent,
-    ServiceComponent,
-    ProjectComponent,
-    BlogComponent,
-    ContactComponent,
-    ClientLayoutComponent
+    ProductAddComponent,
+    AcccoutlistComponent,
+    PagenotfoundComponent,
+    ProductEditComponent,
+    AdminLayoutComponent,
+
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
-    AdminModule  // Thêm dòng này
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [PostService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
