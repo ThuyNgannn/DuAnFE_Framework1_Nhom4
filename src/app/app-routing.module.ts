@@ -8,7 +8,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import { ClientLayoutComponent } from './client-layout/client-layout.component';
 import { AdminLayoutComponent } from './admin/admin-layout/admin-layout.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
-import { authGuard } from './auth.guard';
+import { AuthGuard } from './auth.guard';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminLayoutComponent, children: [
     // Đường dẫn cho trang quản trị với admin-layout
     { path: '', redirectTo: '/admin/home', pathMatch: 'full' },
-    { path: 'home', component: AdminHomeComponent, canActivate: [authGuard] },
+    { path: 'home', component: AdminHomeComponent, canActivate: [AuthGuard] },
       ]
     }
 ];

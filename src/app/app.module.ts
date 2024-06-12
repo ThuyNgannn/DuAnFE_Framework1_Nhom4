@@ -17,7 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { authGuard } from './auth.guard';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { authGuard } from './auth.guard';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
