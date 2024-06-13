@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
@@ -9,11 +9,12 @@ import jwt_decode from 'jwt-decode';
   templateUrl: './loginn.component.html',
   styleUrls: ['./loginn.component.css']
 })
-export class LoginnComponent implements OnDestroy {
+export class LoginnComponent {
+
   email: string = '';
   password: string = '';
   errorMessage: string = '';
-  role: string = ''; 
+  role: string = '';
   private loginSubscription: Subscription | undefined;
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -22,11 +23,12 @@ export class LoginnComponent implements OnDestroy {
     this.loginSubscription = this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: (res: any) => {
         const decoded: any = jwt_decode(res.token);
-        this.role = decoded.user.role; 
-        if (this.role == 'admin') {
-          this.router.navigate(['/admin']); 
+        this.role = decoded.user.role;
+        sessionStorage.setItem('token', res.token); // Lưu token vào sessionStorage
+        if (this.role === 'admin') {
+          this.router.navigate(['/admin']);
         } else {
-          this.router.navigate(['/client']); 
+          this.router.navigate(['/client']);
         }
       },
       error: (err: any) => {

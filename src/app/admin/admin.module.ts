@@ -11,7 +11,7 @@ import { AdminPagenotfoundComponent } from './admin-pagenotfound/admin-pagenotfo
 import { AdminProductAddComponent } from './admin-product-add/admin-product-add.component';
 import { AdminProductEditComponent } from './admin-product-edit/admin-product-edit.component';
 import { AdminProductlistComponent } from './admin-productlist/admin-productlist.component';
-
+import { AuthGuard } from '../auth.guard';
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import { AdminProductlistComponent } from './admin-productlist/admin-productlist
   imports: [
     CommonModule,
     AdminRoutingModule
-  ]
+  ],
+  providers: [AuthGuard]
 })
 export class AdminModule { }

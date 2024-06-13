@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
 
 import { ClientRoutingModule } from './client-routing.module';
 import { ClientComponent } from './client.component';
@@ -33,7 +34,8 @@ import { RegisterrComponent } from './registerr/registerr.component';
   imports: [
     CommonModule,
     ClientRoutingModule,
-    FormsModule
+    FormsModule,
+
   ]
 })
 export class ClientModule { }
