@@ -1,0 +1,60 @@
+<app-client-header></app-client-header>
+<div class="container-fluid py-5 mt-5">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Đăng ký</div>
+                    <div class="card-body">
+                        <form (ngSubmit)="register()" #registerForm="ngForm">
+                            <div class="form-group mb-4">
+                                <label for="fullname"><i class="fas fa-user"></i> Họ tên</label>
+                                <input type="text" [(ngModel)]="name" class="form-control" id="fullname" name="name"
+                                    placeholder="Nhập họ tên" required #nameModel="ngModel">
+                                <div *ngIf="nameModel.invalid && (nameModel.dirty || nameModel.touched)"
+                                    class="text-danger">
+                                    <div *ngIf="nameModel.errors?.['required']">Họ tên là bắt buộc.</div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="studentId"><i class="fas fa-user"></i> Mã sinh viên</label>
+                                <input type="text" [(ngModel)]="studentId" class="form-control" id="studentId" name="studentId"
+                                    placeholder="Nhập mã sinh viên" required #studentIdModel="ngModel">
+                                <div *ngIf="studentIdModel.invalid && (studentIdModel.dirty || studentIdModel.touched)"
+                                    class="text-danger">
+                                    <div *ngIf="studentIdModel.errors?.['required']">Mã sinh viên là bắt buộc.</div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                                <input type="email" [(ngModel)]="email" class="form-control" id="email" name="email"
+                                    placeholder="Nhập email" required #emailModel="ngModel">
+                                <div *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)"
+                                    class="text-danger">
+                                    <div *ngIf="emailModel.errors?.['required']">Email là bắt buộc.</div>
+                                    <div *ngIf="emailModel.errors?.['email']">Email không hợp lệ.</div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="password"><i class="fas fa-lock"></i> Mật khẩu</label>
+                                <input type="password" [(ngModel)]="password" class="form-control" id="password"
+                                    name="password" placeholder="Nhập mật khẩu" required minlength="6"
+                                    #passwordModel="ngModel">
+                                <div *ngIf="passwordModel.invalid && (passwordModel.dirty || passwordModel.touched)"
+                                    class="text-danger">
+                                    <div *ngIf="passwordModel.errors?.['required']">Mật khẩu là bắt buộc.</div>
+                                    <div *ngIf="passwordModel.errors?.['minlength']">Mật khẩu phải có ít nhất 6 ký tự.
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Đăng
+                                ký</button>
+                            <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-client-footer></app-client-footer>

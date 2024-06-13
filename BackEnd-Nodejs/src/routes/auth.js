@@ -7,13 +7,13 @@ const router = express.Router();
 
 // Register
 router.post('/register', async (req, res) => {
-  const { email, password, name, role } = req.body;
+  const { email, password, name, studentId, role } = req.body;
   try {
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
     }
-    user = new User({ email, password,name, role });
+    user = new User({ email, password,name, studentId, role });
     await user.save();
 
     const payload = { user: { id: user.id, role: user.role } };
@@ -31,8 +31,6 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     let user = await User.findOne({ email });
-    // console.log("user:",user);
-    // console.log("password:" + password);
     if (!user) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
@@ -41,7 +39,13 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
-    const payload = { user: { id: user.id, role: user.role } };
+    const payload = { 
+      user: { 
+        id: user.id, 
+        role: user.role === 'admin' ? 'admin' : 'user' 
+      } 
+    };
+    
     console.log("payload:",payload);
     jwt.sign(payload, 'your_jwt_secret', { expiresIn: '1h' }, (err, token) => {
       if (err) throw err;
