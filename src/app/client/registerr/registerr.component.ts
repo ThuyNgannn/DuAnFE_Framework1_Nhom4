@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-registerr',
   templateUrl: './registerr.component.html',
-  styleUrls: ['./registerr.component.css']
+  styleUrls: ['./registerr.component.css'],
 })
 export class RegisterrComponent {
   name: string = '';
@@ -17,14 +17,15 @@ export class RegisterrComponent {
   register() {
     const observer = {
       next: (res: any) => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/client/login']);
       },
       error: (err: any) => {
-        this.errorMessage = 'Registration failed';
-      }
+        this.errorMessage = 'Đăng ký thất bại. Vui lòng thử lại.';
+      },
     };
 
-    this.authService.register({ name: this.name, email: this.email, password: this.password }).subscribe(observer);
+    this.authService
+      .register({ name: this.name, email: this.email, password: this.password })
+      .subscribe(observer);
   }
-
 }

@@ -7,10 +7,9 @@ import jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-loginn',
   templateUrl: './loginn.component.html',
-  styleUrls: ['./loginn.component.css']
+  styleUrls: ['./loginn.component.css'],
 })
 export class LoginnComponent {
-
   email: string = '';
   password: string = '';
   errorMessage: string = '';
@@ -20,21 +19,29 @@ export class LoginnComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    this.loginSubscription = this.authService.login({ email: this.email, password: this.password }).subscribe({
-      next: (res: any) => {
-        const decoded: any = jwt_decode(res.token);
-        this.role = decoded.user.role;
-        sessionStorage.setItem('token', res.token); // Lưu token vào sessionStorage
-        if (this.role === 'admin') {
-          this.router.navigate(['/admin']);
-        } else {
-          this.router.navigate(['/client']);
-        }
-      },
-      error: (err: any) => {
-        this.errorMessage = 'Tên đăng nhập hoặc mật khẩu không đúng!!!';
-      }
-    });
+    this.errorMessage = ''; // Reset error message on login attempt
+    if (!this.email || !this.password) {
+      this.errorMessage = 'Email và Mật khẩu là bắt buộc.';
+      return;
+    }
+
+    this.loginSubscription = this.authService
+      .login({ email: this.email, password: this.password })
+      .subscribe({
+        next: (res: any) => {
+          const decoded: any = jwt_decode(res.token);
+          this.role = decoded.user.role;
+          sessionStorage.setItem('token', res.token);
+          if (this.role === 'admin') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/client']);
+          }
+        },
+        error: (err: any) => {
+          this.errorMessage = 'Tên đăng nhập hoặc mật khẩu không đúng!!!';
+        },
+      });
   }
 
   ngOnDestroy() {
