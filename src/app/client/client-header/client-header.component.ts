@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-client-header',
@@ -6,9 +6,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./client-header.component.css']
 })
 export class ClientHeaderComponent {
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.roleChanged.subscribe(() => {
+      this.cdr.detectChanges();
+    });
+  }
 
 
   showAddForm(): void {

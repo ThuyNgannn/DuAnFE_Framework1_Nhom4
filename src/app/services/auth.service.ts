@@ -1,38 +1,55 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, tap, catchError } from 'rxjs';
+import { Observable, tap, catchError, throwError, BehaviorSubject } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private authUrl = 'http://localhost:3000/api';
   private redirectUrl: string = '';
-  constructor(private http: HttpClient, private router: Router) {}
+
+  private roleSubject = new BehaviorSubject<string | null>(null);
+  roleChanged = this.roleSubject.asObservable();
+
+  constructor(private http: HttpClient, private router: Router) {
+    this.setInitialRole();
+  }
+
+  private setInitialRole() {
+    const token = this.getToken();
+    if (token) {
+      const decoded: any = jwt_decode(token);
+      this.roleSubject.next(decoded.user.role);
+    } else {
+      this.roleSubject.next(null);
+    }
+  }
 
   register(user: any): Observable<any> {
     return this.http.post(`${this.authUrl}/register`, user);
   }
 
   login(user: any): Observable<any> {
-    return this.http.post(`${this.authUrl}/login`, user)
-        .pipe(
-            tap((res: any) => {
-                sessionStorage.setItem('token', res.token);
-            }),
-            catchError(error => {
-              console.error('Login error:', error);
-              throw error;
-            })
-        );
+    return this.http.post(`${this.authUrl}/login`, user).pipe(
+      tap((res: any) => {
+        sessionStorage.setItem('token', res.token);
+        const decoded: any = jwt_decode(res.token);
+        this.roleSubject.next(decoded.user.role);
+      }),
+      catchError((error) => {
+        console.error('Login error:', error);
+        throw error;
+      })
+    );
   }
 
   logout(): void {
     sessionStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.roleSubject.next(null);
+    this.router.navigate(['/client/login']);
   }
 
   isLoggedIn(): boolean {
@@ -43,15 +60,18 @@ export class AuthService {
     }
     return false;
   }
-// Lưu redirectUrl
-setRedirectUrl(url: string): void {
-  this.redirectUrl = url;
-}
-getRedirectUrl(): string {
-  const url = this.redirectUrl;
-  this.redirectUrl = ''; // Reset redirectUrl
-  return url;
-}
+
+  // Lưu redirectUrl
+  setRedirectUrl(url: string): void {
+    this.redirectUrl = url;
+  }
+
+  getRedirectUrl(): string {
+    const url = this.redirectUrl;
+    this.redirectUrl = ''; // Reset redirectUrl
+    return url;
+  }
+
   getToken(): string | null {
     return sessionStorage.getItem('token');
   }
@@ -64,17 +84,19 @@ getRedirectUrl(): string {
     }
     return null;
   }
+
   hasRole(role: string): boolean {
     const token = this.getToken();
     if (token) {
       const decoded: any = jwt_decode(token);
-      const userRoles = decoded.user.role ? [decoded.user.role] : []; 
-      return userRoles.includes(role);
+      return decoded.user.role === role;
+      
     }
     return false;
   }
-   // Lấy thông tin profile từ server
-   getProfile(): Observable<any> {
+
+  // Lấy thông tin profile từ server
+  getProfile(): Observable<any> {
     return this.http.get(`${this.authUrl}/profile`);
   }
 }
