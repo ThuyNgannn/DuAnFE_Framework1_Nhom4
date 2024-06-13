@@ -7,6 +7,7 @@ import { AdminProductlistComponent } from './admin-productlist/admin-productlist
 import { AdminProductAddComponent } from './admin-product-add/admin-product-add.component';
 import { AdminProductEditComponent } from './admin-product-edit/admin-product-edit.component';
 import { AdminAcccoutlistComponent } from './admin-acccoutlist/admin-acccoutlist.component';
+import { ProfileComponent } from './profile/profile.component';
 const routes: Routes = [{
 
   path: '',
@@ -18,7 +19,8 @@ const routes: Routes = [{
       { path: 'product', component: AdminProductlistComponent},
       { path: 'productadd', component: AdminProductAddComponent},
       { path: 'product/:id', component: AdminProductEditComponent},
-      { path: 'userlist', component: AdminAcccoutlistComponent}
+      { path: 'userlist', component: AdminAcccoutlistComponent},
+      { path: 'profile/:id', component: ProfileComponent}
     ]
   }
 ];

@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
-import { LoginModule } from './login/login.module';
 import { UserService } from './services/user.service';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +18,7 @@ import { UserService } from './services/user.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    LoginModule
+    RouterModule
   ],
   providers: [AuthGuard, UserService],
   bootstrap: [AppComponent]

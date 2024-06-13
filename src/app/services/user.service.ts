@@ -6,32 +6,32 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  private urlUser = `${environment.url}/users`;
+  private apiUrl = 'http://localhost:3000/api/users';
 
   constructor(private http: HttpClient) { }
 
   // Get all users
   getAllUsers(): Observable<any> {
-    return this.http.get<any>(this.urlUser);
+    return this.http.get<any>(this.apiUrl);
   }
 
   // Get user by ID
   getUserById(id: string): Observable<any> {
-    return this.http.get(`${this.urlUser}/${id}`);
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
 
   // Create a new user
   createUser(dataUser: any) {
-    return this.http.post(this.urlUser, dataUser);
+    return this.http.post(this.apiUrl, dataUser);
   }
 
   // Update a user by ID
   updateUser(userId: string, dataUser: any) {
-    return this.http.put(`${this.urlUser}/${userId}`, dataUser);
+    return this.http.put(`${this.apiUrl}/${userId}`, dataUser);
   }
 
   // Delete a user by ID
   deleteUser(userId: string) {
-    return this.http.delete(`${this.urlUser}/${userId}`);
+    return this.http.delete(`${this.apiUrl}/${userId}`);
   }
 }

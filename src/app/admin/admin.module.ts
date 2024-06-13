@@ -16,6 +16,7 @@ import { AdminProductlistComponent } from './admin-productlist/admin-productlist
 import { AuthGuard } from '../auth.guard';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { AdminFoterComponent } from './admin-foter/admin-foter.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AdminFoterComponent } from './admin-foter/admin-foter.component';
     AdminProductEditComponent,
     AdminProductlistComponent,
     AdminHeaderComponent,
-    AdminFoterComponent
+    AdminFoterComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
