@@ -15,4 +15,7 @@ export class ClientHeaderComponent {
     // Logic của phương thức showAddForm
     console.log("showAddForm called");
   }
+  logout() {
+    this.authService.logout();
+  }
 }
