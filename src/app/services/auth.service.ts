@@ -51,4 +51,14 @@ export class AuthService {
   getProfile(): Observable<any> {
     return this.http.get(`${this.authUrl}/profile`);
   }
+  hasRole(role: string): boolean {
+    const token = this.getToken();
+    if (token) {
+      const decoded: any = jwt_decode(token);
+      const userRoles = decoded.user.role ? [decoded.user.role] : []; // Assuming role is a single value, not an array
+      return userRoles.includes(role);
+    }
+    return false;
+  }
+  
 }

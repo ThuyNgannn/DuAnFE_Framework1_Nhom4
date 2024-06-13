@@ -2,18 +2,28 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { AdminHeaderComponent } from './admin-header/admin-header.component';
-import { AdminFooterComponent } from './admin-footer/admin-footer.component';
+import { AdminComponent } from './admin.component';
+import { AdminAcccoutlistComponent } from './admin-acccoutlist/admin-acccoutlist.component';
+import { AdminLayoutsComponent } from './admin-layouts/admin-layouts.component';
+import { AdminEntitesComponent } from './admin-entites/admin-entites.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AdminPagenotfoundComponent } from './admin-pagenotfound/admin-pagenotfound.component';
+import { AdminProductAddComponent } from './admin-product-add/admin-product-add.component';
+import { AdminProductEditComponent } from './admin-product-edit/admin-product-edit.component';
+import { AdminProductlistComponent } from './admin-productlist/admin-productlist.component';
 
 
 @NgModule({
   declarations: [
-    AdminLayoutComponent,
-    AdminHeaderComponent,
-    AdminFooterComponent,
-    AdminHomeComponent
+    AdminComponent,
+    AdminAcccoutlistComponent,
+    AdminLayoutsComponent,
+    AdminEntitesComponent,
+    AdminHomeComponent,
+    AdminPagenotfoundComponent,
+    AdminProductAddComponent,
+    AdminProductEditComponent,
+    AdminProductlistComponent
   ],
   imports: [
     CommonModule,
