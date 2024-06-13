@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -13,6 +14,8 @@ import { AdminProductAddComponent } from './admin-product-add/admin-product-add.
 import { AdminProductEditComponent } from './admin-product-edit/admin-product-edit.component';
 import { AdminProductlistComponent } from './admin-productlist/admin-productlist.component';
 import { AuthGuard } from '../auth.guard';
+import { AdminHeaderComponent } from './admin-header/admin-header.component';
+import { AdminFoterComponent } from './admin-foter/admin-foter.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +27,16 @@ import { AuthGuard } from '../auth.guard';
     AdminPagenotfoundComponent,
     AdminProductAddComponent,
     AdminProductEditComponent,
-    AdminProductlistComponent
+    AdminProductlistComponent,
+    AdminHeaderComponent,
+    AdminFoterComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AuthGuard]
 })
