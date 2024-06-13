@@ -17,6 +17,15 @@
                                 </div>
                             </div>
                             <div class="form-group mb-4">
+                                <label for="studentId"><i class="fas fa-user"></i> Mã sinh viên</label>
+                                <input type="text" [(ngModel)]="studentId" class="form-control" id="studentId" name="studentId"
+                                    placeholder="Nhập mã sinh viên" required #studentIdModel="ngModel">
+                                <div *ngIf="studentIdModel.invalid && (studentIdModel.dirty || studentIdModel.touched)"
+                                    class="text-danger">
+                                    <div *ngIf="studentIdModel.errors?.['required']">Mã sinh viên là bắt buộc.</div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
                                 <label for="email"><i class="fas fa-envelope"></i> Email</label>
                                 <input type="email" [(ngModel)]="email" class="form-control" id="email" name="email"
                                     placeholder="Nhập email" required #emailModel="ngModel">

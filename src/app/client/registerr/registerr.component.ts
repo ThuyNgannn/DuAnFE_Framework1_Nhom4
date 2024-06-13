@@ -10,6 +10,7 @@ export class RegisterrComponent {
   name: string = '';
   email: string = '';
   password: string = '';
+  studentId: string = '';
   errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -25,7 +26,7 @@ export class RegisterrComponent {
     };
 
     this.authService
-      .register({ name: this.name, email: this.email, password: this.password })
+      .register({ name: this.name, email: this.email, password: this.password, studentId: this.studentId })
       .subscribe(observer);
   }
 }
