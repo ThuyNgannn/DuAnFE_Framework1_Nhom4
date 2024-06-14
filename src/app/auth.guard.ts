@@ -26,11 +26,13 @@ export class AuthGuard implements CanActivate {
         this.router.navigate(['/login']);
         return false;
       }
+     
       return true;
     }
 
     // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập và lưu lại url cần truy cập
     this.authService.setRedirectUrl(url); // Lưu lại url cần truy cập
     return this.router.parseUrl('/login');
+    
   }
 }

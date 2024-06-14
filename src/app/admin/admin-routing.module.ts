@@ -8,6 +8,8 @@ import { AdminProductAddComponent } from './admin-product-add/admin-product-add.
 import { AdminProductEditComponent } from './admin-product-edit/admin-product-edit.component';
 import { AdminAcccoutlistComponent } from './admin-acccoutlist/admin-acccoutlist.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AdminCategorylistComponent } from './admin-categorylist/admin-categorylist.component';
+import { AdminCategoryFormComponent } from './admin-category-form/admin-category-form.component';
 const routes: Routes = [{
 
   path: '',
@@ -20,7 +22,10 @@ const routes: Routes = [{
       { path: 'productadd', component: AdminProductAddComponent},
       { path: 'product/:id', component: AdminProductEditComponent},
       { path: 'userlist', component: AdminAcccoutlistComponent},
-      { path: 'profile/:id', component: ProfileComponent}
+      { path: 'profile/:id', component: ProfileComponent},
+      { path: 'categories', component: AdminCategorylistComponent },
+      { path: 'categories/add', component: AdminCategoryFormComponent },
+      { path: 'categories/edit/:id', component: AdminCategoryFormComponent }
     ]
   }
 ];

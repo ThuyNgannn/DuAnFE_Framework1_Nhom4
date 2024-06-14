@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Category List</h2>
+    <a class="btn btn-primary mb-3" [routerLink]="['/admin/categories/add']">Thêm loại</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tên Loại</th>
+          <th scope="col">Trạng thái</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ category.name }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm me-2" [routerLink]="['/admin/categories/edit', category._id]">
+              <i class="bi bi-pencil"></i> Chỉnh sửa
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteCategory(category._id)">
+              <i class="bi bi-trash"></i> Xóa
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  

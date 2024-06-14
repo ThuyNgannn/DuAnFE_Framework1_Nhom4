@@ -1,0 +1,10 @@
+<div class="container mt-5">
+  <h2 class="mb-4">{{ isEditMode ? 'Chỉnh sửa' : 'Thêm loại' }}</h2>
+  <form [formGroup]="categoryForm" (ngSubmit)="submitForm()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Tên loại</label>
+      <input type="text" id="name" class="form-control" formControlName="name" required>
+    </div>
+    <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Lưu lại' : 'Thêm loại' }}</button>
+  </form>
+</div>

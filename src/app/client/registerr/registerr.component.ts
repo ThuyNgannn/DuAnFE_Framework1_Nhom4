@@ -12,12 +12,14 @@ export class RegisterrComponent {
   password: string = '';
   studentId: string = '';
   errorMessage: string = '';
+  successMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   register() {
     const observer = {
       next: (res: any) => {
+        this.successMessage = 'Đăng ký thành công!'; // Set success message on successful registration
         this.router.navigate(['/client/login']);
       },
       error: (err: any) => {

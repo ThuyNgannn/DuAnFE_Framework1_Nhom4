@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/post.service';
+import { CategoryService } from 'src/app/services/category.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
@@ -10,50 +11,51 @@ import { Router } from '@angular/router';
 export class AdminProductAddComponent implements OnInit {
   postForm: FormGroup;
   errorMessage: string = '';
+  categories: any[] = [];
 
-  constructor(private fb: FormBuilder, private postService: PostService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private postService: PostService,
+    private categoryService: CategoryService
+  ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
-      subtitle: ['', Validators.required],
-      content: ['', [Validators.required, Validators.minLength(50)]],
-      author: ['', Validators.required]
+      content: ['', Validators.required],
+      subtitle: [''],
+      author: ['', Validators.required],
+      categoryId: ['', Validators.required]
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadCategories();
+  }
+
+  loadCategories() {
+    this.categoryService.getAllCategories().subscribe({
+      next: (data: any[]) => {
+        this.categories = data;
+      },
+      error: (error) => {
+        console.error('Lỗi:', error);
+      }
+    });
+  }
 
   submitForm() {
     if (this.postForm.valid) {
       this.postService.createPost(this.postForm.value).subscribe({
         next: () => {
+          alert('Thêm bài viết mới thành công!');
           this.router.navigate(['/admin/product']);
         },
         error: (err) => {
-          this.errorMessage = 'Failed to create post';
+          this.errorMessage = 'Failed to add new post';
         }
       });
     } else {
-      // Check each field for errors
-      switch (true) {
-        case this.postForm.get('title')?.hasError('required'):
-          this.errorMessage = 'Tiêu đề là bắt buộc.';
-          break;
-        case this.postForm.get('subtitle')?.hasError('required'):
-          this.errorMessage = 'Tiêu đề phụ là bắt buộc.';
-          break;
-        case this.postForm.get('content')?.hasError('required'):
-          this.errorMessage = 'Nội dung là bắt buộc.';
-          break;
-        case this.postForm.get('content')?.hasError('minlength'):
-          this.errorMessage = 'Nội dung phải có ít nhất 50 ký tự.';
-          break;
-        case this.postForm.get('author')?.hasError('required'):
-          this.errorMessage = 'Tác giả là bắt buộc.';
-          break;
-        default:
-          this.errorMessage = 'Vui lòng điền đầy đủ thông tin.';
-          break;
-      }
+      this.errorMessage = 'Vui lòng điền đầy đủ thông tin';
     }
   }
   

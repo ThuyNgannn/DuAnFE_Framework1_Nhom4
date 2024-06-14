@@ -21,8 +21,13 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: 'khachhang'
-  }
+    default: 'hoc-sinh'
+  },
+  trangthai: {
+    type: String,
+    default: 'đang hoạt động'
+  },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });
 
 UserSchema.pre('save', async function(next) {

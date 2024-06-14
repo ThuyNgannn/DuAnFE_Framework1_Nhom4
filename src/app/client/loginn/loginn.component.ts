@@ -19,7 +19,7 @@ export class LoginnComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    this.errorMessage = ''; // Reset error message on login attempt
+    this.errorMessage = '';
     if (!this.email || !this.password) {
       this.errorMessage = 'Email và Mật khẩu là bắt buộc.';
       return;
@@ -42,6 +42,11 @@ export class LoginnComponent {
           this.errorMessage = 'Tên đăng nhập hoặc mật khẩu không đúng!!!';
         },
       });
+  }
+
+  register() {
+    console.log('Navigating to register page...');
+    this.router.navigate(['/register']);
   }
 
   ngOnDestroy() {

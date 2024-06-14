@@ -29,7 +29,20 @@ export class AuthService {
   }
 
   register(user: any): Observable<any> {
-    return this.http.post(`${this.authUrl}/register`, user);
+    if (!user.trangthai) {
+      user.trangthai = 'đang hoạt động';
+    }
+    return this.http.post(`${this.authUrl}/register`, user).pipe(
+      tap((res: any) => {
+        sessionStorage.setItem('token', res.token);
+        const decoded: any = jwt_decode(res.token);
+        this.roleSubject.next(decoded.user.role);
+      }),
+      catchError((error) => {
+        console.error('Registration error:', error);
+        throw error;
+      })
+    );
   }
 
   login(user: any): Observable<any> {
@@ -45,12 +58,14 @@ export class AuthService {
       })
     );
   }
+  
 
   logout(): void {
     sessionStorage.removeItem('token');
     this.roleSubject.next(null);
     this.router.navigate(['/client/login']);
   }
+  
 
   isLoggedIn(): boolean {
     const token = this.getToken();
@@ -60,6 +75,7 @@ export class AuthService {
     }
     return false;
   }
+  
 
   // Lưu redirectUrl
   setRedirectUrl(url: string): void {
@@ -68,7 +84,7 @@ export class AuthService {
 
   getRedirectUrl(): string {
     const url = this.redirectUrl;
-    this.redirectUrl = ''; // Reset redirectUrl
+    this.redirectUrl = '';
     return url;
   }
 
@@ -86,13 +102,8 @@ export class AuthService {
   }
 
   hasRole(role: string): boolean {
-    const token = this.getToken();
-    if (token) {
-      const decoded: any = jwt_decode(token);
-      return decoded.user.role === role;
-      
-    }
-    return false;
+    const userRole = this.getRole();
+    return userRole === role;
   }
 
   // Lấy thông tin profile từ server

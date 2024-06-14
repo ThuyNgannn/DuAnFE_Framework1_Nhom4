@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
   private urlPost = `${environment.url}/posts`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Get all posts
   getAllPosts(): Observable<any[]> {
@@ -16,22 +17,31 @@ export class PostService {
   }
 
   getPostById(id: string): Observable<any> {
-    return this.http.get(`${this.urlPost}/${id}`);
+    return this.http.get<any>(`${this.urlPost}/${id}`);
   }
-  
 
   // Create a new post
-  createPost(dataPost: any) {
-    return this.http.post(this.urlPost, dataPost);
+  createPost(dataPost: any): Observable<any> {
+    return this.http.post<any>(this.urlPost, dataPost);
   }
 
   // Update a post by ID
-  updatePost(postId: string, dataPost: any) {
-    return this.http.put(`${this.urlPost}/${postId}`, dataPost);
+  updatePost(postId: string, dataPost: any): Observable<any> {
+    return this.http.put<any>(`${this.urlPost}/${postId}`, dataPost);
   }
 
   // Delete a post by ID
-  deletePost(postId: string) {
-    return this.http.delete(`${this.urlPost}/${postId}`);
+  deletePost(postId: string): Observable<any> {
+    return this.http.delete<any>(`${this.urlPost}/${postId}`);
   }
+// New methods for comments
+addComment(postId: string, comment: any, token: string): Observable<any> {
+  const headers = new HttpHeaders().set('x-auth-token', token);
+  return this.http.post<any>(`${this.urlPost}/${postId}/comments`, comment, { headers });
+}
+
+getComments(postId: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.urlPost}/${postId}/comments`);
+}
+  
 }

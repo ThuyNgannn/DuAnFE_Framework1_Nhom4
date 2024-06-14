@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
     }
-    user = new User({ email, password,name, studentId, role });
+    user = new User({ email, password,name, studentId, role, trangthai: 'đang hoạt động' });
     await user.save();
 
     const payload = { user: { id: user.id, role: user.role } };

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/post.service';
+import { CategoryService } from 'src/app/services/category.service';
 @Component({
   selector: 'app-admin-product-edit',
   templateUrl: './admin-product-edit.component.html',
@@ -10,27 +11,48 @@ import { PostService } from 'src/app/post.service';
 export class AdminProductEditComponent implements OnInit {
   postId: string = '';
   postForm: FormGroup;
+  errorMessage: string = '';
+  categories: any[] = [];
 
-  constructor(private fb: FormBuilder, private postService: PostService, private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private postService: PostService,
+    private categoryService: CategoryService
+  ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required],
       subtitle: [''],
-      author: ['', Validators.required]
+      author: ['', Validators.required],
+      categoryId: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.postId = params['id'];
+    this.route.paramMap.subscribe(params => {
+      this.postId = params.get('id') || '';
       this.loadPost(this.postId);
+      this.loadCategories();
     });
   }
 
-  loadPost(id: string) {
-    this.postService.getPostById(id).subscribe({
-      next: (post: any) => {
-        this.postForm.patchValue(post); // Đổ dữ liệu bài viết lên form
+  loadPost(postId: string) {
+    this.postService.getPostById(postId).subscribe({
+      next: (post) => {
+        this.postForm.patchValue(post);
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to load post';
+      }
+    });
+  }
+
+  loadCategories() {
+    this.categoryService.getAllCategories().subscribe({
+      next: (data: any[]) => {
+        this.categories = data;
       },
       error: (error) => {
         console.error('Lỗi:', error);
@@ -45,13 +67,17 @@ export class AdminProductEditComponent implements OnInit {
           alert('Cập nhật bài viết thành công!');
           this.router.navigate(['/admin/product']);
         },
-        error: (error) => {
-          alert('Đã xảy ra lỗi khi cập nhật bài viết!');
-          console.error('Lỗi:', error);
+        error: (err) => {
+          this.errorMessage = 'Failed to update post';
         }
       });
     } else {
-      alert('Vui lòng điền đầy đủ thông tin!');
+      this.errorMessage = 'Vui lòng điền đầy đủ thông tin';
     }
+  }
+
+  getCategoryName(categoryId: string): string {
+    const category = this.categories.find(cat => cat._id === categoryId);
+    return category ? category.name : 'N/A';
   }
 }

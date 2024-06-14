@@ -1,3 +1,4 @@
+<!-- src/app/client/client-service-detail/client-service-detail.component.html -->
 <app-client-header></app-client-header>
 
 <div class="container-fluid py-5 my-5">
@@ -16,13 +17,27 @@
                 <h1 class="mb-4">Thông tin liên quan</h1>
                 <p class="mb-4">{{ post.content }}</p>
                 <h6 class="text-primary">Người soạn: {{ post.author }}</h6>
-               
+                
+                <!-- Bình luận -->
+                <div class="comments-section mt-5">
+                    <h3 class="text-primary">Bình luận</h3>
+                    <div *ngFor="let comment of comments" class="comment mb-3">
+                        <h5>{{ comment.userId.username }}</h5>
+                        <p>{{ comment.comment }}</p>
+                        <small>{{ comment.createdAt | date:'short' }}</small>
+                    </div>
+                    
+                    <form (ngSubmit)="addComment()" #commentForm="ngForm" class="mt-4">
+                        <div class="form-group">
+                            <label for="commentContent">Nội dung:</label>
+                            <textarea [(ngModel)]="newComment.comment" class="form-control" id="commentContent" name="comment" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3" [disabled]="commentForm.invalid">Gửi bình luận</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <app-client-footer></app-client-footer>
-
-
-
