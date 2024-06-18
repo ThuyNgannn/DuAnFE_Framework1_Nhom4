@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/auth.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-header',
@@ -6,11 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-header.component.css']
 })
 export class AdminHeaderComponent {
-  userDetails: any;
-  constructor(private router: Router) {}
-
-  navigateToProfile(id: string): void {
-    this.router.navigate(['/admin/profile', id]); // Chuyển hướng đến profile với tham số id
+  constructor(private authService: AuthService, private router: Router) {}
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
-
 }

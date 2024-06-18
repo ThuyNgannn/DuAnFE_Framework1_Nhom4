@@ -5,7 +5,7 @@ import { CategoryService } from 'src/app/services/category.service';
   templateUrl: './admin-categorylist.component.html',
   styleUrls: ['./admin-categorylist.component.css']
 })
-export class AdminCategorylistComponent implements OnInit {
+export class AdminCategorylistComponent implements OnInit  {
   categories: any[] = [];
 
   constructor(private categoryService: CategoryService) {}

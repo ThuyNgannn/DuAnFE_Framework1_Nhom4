@@ -1,40 +1,37 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
-
+import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { AdminRoutingModule } from './admin-routing.module';
-import { AdminComponent } from './admin.component';
-import { AdminAcccoutlistComponent } from './admin-acccoutlist/admin-acccoutlist.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
-import { AdminProductAddComponent } from './admin-product-add/admin-product-add.component';
-import { AdminProductEditComponent } from './admin-product-edit/admin-product-edit.component';
-import { AdminProductlistComponent } from './admin-productlist/admin-productlist.component';
-import { AuthGuard } from '../auth.guard';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
-import { AdminFoterComponent } from './admin-foter/admin-foter.component';
-import { ProfileComponent } from './profile/profile.component';
+import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AdminCategorylistComponent } from './admin-categorylist/admin-categorylist.component';
 import { AdminCategoryFormComponent } from './admin-category-form/admin-category-form.component';
+import { AdminPostlistComponent } from './admin-postlist/admin-postlist.component';
+import { AdminPostEditComponent } from './admin-post-edit/admin-post-edit.component';
+import { AdminPostAddComponent } from './admin-post-add/admin-post-add.component';
+import { AuthGuard } from '../auth.guard';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AccountComponent } from './account/account.component';
+
 
 @NgModule({
   declarations: [
-    AdminComponent,
-    AdminAcccoutlistComponent,
+    AdminProfileComponent,
     AdminHomeComponent,
-    AdminProductAddComponent,
-    AdminProductEditComponent,
-    AdminProductlistComponent,
-    AdminHeaderComponent,
-    AdminFoterComponent,
-    ProfileComponent,
+    AdminUserComponent,
     AdminCategorylistComponent,
-    AdminCategoryFormComponent
+    AdminCategoryFormComponent,
+    AdminPostlistComponent,
+    AdminPostEditComponent,
+    AdminPostAddComponent,
+    AdminHeaderComponent,
+    AccountComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    RouterModule,
     FormsModule,
     ReactiveFormsModule
   ],

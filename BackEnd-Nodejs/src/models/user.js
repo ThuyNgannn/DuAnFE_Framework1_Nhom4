@@ -23,11 +23,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'hoc-sinh'
   },
-  trangthai: {
+  trangThai: {
     type: String,
     default: 'đang hoạt động'
-  },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
+  }
 });
 
 UserSchema.pre('save', async function(next) {

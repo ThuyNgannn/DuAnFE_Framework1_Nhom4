@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
-
 @Component({
   selector: 'app-admin-category-form',
   templateUrl: './admin-category-form.component.html',
   styleUrls: ['./admin-category-form.component.css']
 })
 export class AdminCategoryFormComponent implements OnInit {
-
   categoryForm: FormGroup;
   isEditMode: boolean = false;
   categoryId: string = '';
@@ -49,21 +47,21 @@ export class AdminCategoryFormComponent implements OnInit {
       if (this.isEditMode) {
         this.categoryService.updateCategory(this.categoryId, formData).subscribe(
           () => {
-            alert('Category updated successfully!');
-            this.router.navigate(['/admin/categories']);
+            alert('Cập nhật loại thành công!');
+            this.router.navigate(['/admin/category']);
           },
           (error) => {
-            console.error('Error updating category:', error);
+            console.error('Lỗi cập nhật:', error);
           }
         );
       } else {
         this.categoryService.createCategory(formData).subscribe(
           () => {
-            alert('Category created successfully!');
-            this.router.navigate(['/admin/categories']);
+            alert('Bạn đã thêm thành công!');
+            this.router.navigate(['/admin/category']);
           },
           (error) => {
-            console.error('Error creating category:', error);
+            console.error('Lỗi thêm mới:', error);
           }
         );
       }
@@ -71,5 +69,4 @@ export class AdminCategoryFormComponent implements OnInit {
       alert('Please fill in all required fields.');
     }
   }
-
 }
