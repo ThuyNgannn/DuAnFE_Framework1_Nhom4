@@ -72,7 +72,7 @@ exports.toggleUserStatus = async (req, res) => {
 
     // Toggle trạng thái 'đang hoạt động' và 'ngưng hoạt động'
     user.trangThai = user.trangThai === 'đang hoạt động' ? 'ngưng hoạt động' : 'đang hoạt động';
-    await user.save();
+    await user.save(); // Lưu thay đổi vào cơ sở dữ liệu
 
     res.status(200).json({ trangThai: user.trangThai });
   } catch (error) {
@@ -80,5 +80,9 @@ exports.toggleUserStatus = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+
+  
 
 

@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
 
     // Kiểm tra xem người dùng đã đăng nhập và có vai trò phù hợp hay không
     if (!this.authService.isLoggedIn || !this.authService.hasRole(expectedRole)) {
-      this.router.navigate(['/login']); // Chuyển hướng đến trang đăng nhập nếu không đủ quyền
+      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } }); // Chuyển hướng đến trang đăng nhập nếu không đủ quyền
       return false;
     }
     return true;

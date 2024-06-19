@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostService {
   private urlPost = `${environment.url}/posts`;
@@ -34,14 +34,15 @@ export class PostService {
   deletePost(postId: string): Observable<any> {
     return this.http.delete<any>(`${this.urlPost}/${postId}`);
   }
-// New methods for comments
-addComment(postId: string, comment: any, token: string): Observable<any> {
-  const headers = new HttpHeaders().set('x-auth-token', token);
-  return this.http.post<any>(`${this.urlPost}/${postId}/comments`, comment, { headers });
-}
+  // New methods for comments
+  addComment(postId: string, comment: any, token: string): Observable<any> {
+    const headers = new HttpHeaders().set('x-auth-token', token);
+    return this.http.post<any>(`${this.urlPost}/${postId}/comments`, comment, {
+      headers,
+    });
+  }
 
-getComments(postId: string): Observable<any[]> {
-  return this.http.get<any[]>(`${this.urlPost}/${postId}/comments`);
-}
-  
+  getComments(postId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlPost}/${postId}/comments`);
+  }
 }

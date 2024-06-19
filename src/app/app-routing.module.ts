@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [AuthGuard], 
-    data: { expectedRole: 'admin' } // Yêu cầu vai trò 'admin' để truy cập vào admin module
+    data: { expectedRole: 'admin' }
   },
   { path: 'client',
     loadChildren: () => import('./client/client.module').then(m => m.ClientModule)},
@@ -25,5 +25,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }

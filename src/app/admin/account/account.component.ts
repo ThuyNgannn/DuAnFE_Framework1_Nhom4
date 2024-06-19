@@ -27,7 +27,6 @@ export class AccountComponent implements OnInit {
   toggleStatus(userId: string): void {
     this.userService.toggleUserStatus(userId).subscribe(
       (data) => {
-        // Cập nhật lại trạng thái người dùng trong danh sách
         const index = this.users.findIndex(user => user._id === userId);
         if (index !== -1) {
           this.users[index].trangThai = data.trangThai;
@@ -38,4 +37,5 @@ export class AccountComponent implements OnInit {
       }
     );
   }
+  
 }

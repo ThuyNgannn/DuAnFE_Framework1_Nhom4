@@ -20,6 +20,8 @@ export class AuthService {
     return this.http.post(`${this.authUrl}/login`, user).pipe(
       tap((res: any) => {
         localStorage.setItem('token', res.token); // Lưu token vào localStorage khi đăng nhập thành công
+        const returnUrl = this.router.routerState.snapshot.root.queryParams['returnUrl'] || '/';
+        this.router.navigate([returnUrl]); // Điều hướng đến trang yêu cầu trước khi đăng nhập
       })
     );
   }
@@ -54,6 +56,4 @@ export class AuthService {
   getProfile(): Observable<any> {
     return this.http.get(`${this.authUrl}/profile`);
   }
-
-
 }
