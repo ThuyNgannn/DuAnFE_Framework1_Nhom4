@@ -1,19 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ClientHomeComponent } from './client/client-home/client-home.component';
+import { AdminRoutingModule } from './admin/admin-routing.module';
+import { ClientRoutingModule } from './client/client-routing.module';
 import { AuthGuard } from './auth.guard';
-import { LoginnComponent } from './client/loginn/loginn.component';
+
 const routes: Routes = [
-  
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginnComponent },
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard] },
-  { path: 'client', loadChildren: () => import('./client/client.module').then(m => m.ClientModule), canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '/client', pathMatch: 'full' }
- 
+  { path: '', redirectTo: '/client/home', pathMatch: 'full' },
+  { path: 'client/home', component: ClientHomeComponent },
+  { path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard], 
+    data: { expectedRole: 'admin' } // Yêu cầu vai trò 'admin' để truy cập vào admin module
+  },
+  { path: 'client',
+    loadChildren: () => import('./client/client.module').then(m => m.ClientModule)},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [
+    RouterModule.forRoot(routes),
+    AdminRoutingModule,
+    ClientRoutingModule 
+  ],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

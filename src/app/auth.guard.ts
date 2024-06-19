@@ -1,36 +1,21 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from './services/auth.service';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const url: string = state.url;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const expectedRole = route.data['expectedRole']; // Lấy vai trò cần thiết từ dữ liệu route
+    console.log("Expected Role:", expectedRole);
 
-    return this.checkLogin(url);
-  }
-
-  checkLogin(url: string): boolean | UrlTree {
-    if (this.authService.isLoggedIn()) {
-      // Kiểm tra xem người dùng có quyền truy cập vào url không
-      if (url.startsWith('/admin') && !this.authService.hasRole('admin')) {
-        this.router.navigate(['/login']);
-        return false;
-      }
-      return true;
+    // Kiểm tra xem người dùng đã đăng nhập và có vai trò phù hợp hay không
+    if (!this.authService.isLoggedIn || !this.authService.hasRole(expectedRole)) {
+      this.router.navigate(['/login']); // Chuyển hướng đến trang đăng nhập nếu không đủ quyền
+      return false;
     }
-
-    // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập và lưu lại url cần truy cập
-    this.authService.setRedirectUrl(url); // Lưu lại url cần truy cập
-    return this.router.parseUrl('/login');
+    return true;
   }
 }

@@ -7,38 +7,15 @@ const commentSchema = new mongoose.Schema({
 });
 
 const postSchema = new mongoose.Schema({
-  title:
-  {
-    type: String,
-    required: true
-  },
-  subtitle:
-  {
-    type: String,
-    required: true
-  },
-  content:
-  {
-    type: String,
-    required: true
-  },
-  author:
-  {
-    type: String,
-    required: true
-  },
-  createdAt:
-  {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt:
-  {
-    type: Date,
-    default: Date.now
-  },
+  title: { type: String, required: true },
+  subtitle: { type: String, required: true },
+  content: { type: String, required: true },
+  author: { type: String, required: true },
+  categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
   tags: [String],
-
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });
 
 module.exports = mongoose.model('Post', postSchema);

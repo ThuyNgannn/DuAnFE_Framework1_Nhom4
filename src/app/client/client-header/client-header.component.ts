@@ -1,17 +1,15 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth.service';
 @Component({
   selector: 'app-client-header',
   templateUrl: './client-header.component.html',
   styleUrls: ['./client-header.component.css']
 })
-export class ClientHeaderComponent {
-  constructor(public authService: AuthService, private cdr: ChangeDetectorRef) {}
+export class ClientHeaderComponent implements OnInit {
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService.roleChanged.subscribe(() => {
-      this.cdr.detectChanges();
-    });
+  
   }
 
 

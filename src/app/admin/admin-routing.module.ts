@@ -1,28 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './admin.component';
-import { AuthGuard } from '../auth.guard';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
-import { AdminProductlistComponent } from './admin-productlist/admin-productlist.component';
-import { AdminProductAddComponent } from './admin-product-add/admin-product-add.component';
-import { AdminProductEditComponent } from './admin-product-edit/admin-product-edit.component';
-import { AdminAcccoutlistComponent } from './admin-acccoutlist/admin-acccoutlist.component';
-import { ProfileComponent } from './profile/profile.component';
-const routes: Routes = [{
-
-  path: '',
-    component: AdminComponent,
-    canActivate: [AuthGuard],
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: AdminHomeComponent },
-      { path: 'product', component: AdminProductlistComponent},
-      { path: 'productadd', component: AdminProductAddComponent},
-      { path: 'product/:id', component: AdminProductEditComponent},
-      { path: 'userlist', component: AdminAcccoutlistComponent},
-      { path: 'profile/:id', component: ProfileComponent}
-    ]
-  }
+import { AdminPostlistComponent } from './admin-postlist/admin-postlist.component';
+import { AdminPostAddComponent } from './admin-post-add/admin-post-add.component';
+import { AdminPostEditComponent } from './admin-post-edit/admin-post-edit.component';
+import { AdminCategorylistComponent } from './admin-categorylist/admin-categorylist.component';
+import { AdminCategoryFormComponent } from './admin-category-form/admin-category-form.component';
+import { AccountComponent } from './account/account.component';
+const routes: Routes = [
+  { path: 'admin', component: AdminHomeComponent },
+  { path: 'admin-profile', component: AdminProfileComponent },
+  { path: 'admin-post', component: AdminPostlistComponent },
+  { path: 'post-add', component: AdminPostAddComponent},
+  { path: 'admin-post/:id', component: AdminPostEditComponent },
+  { path: 'category', component: AdminCategorylistComponent},
+  { path: 'category/add', component: AdminCategoryFormComponent},
+  { path: 'category/edit/:id', component: AdminCategoryFormComponent},
+  { path: 'account', component: AccountComponent}
 ];
 
 @NgModule({
