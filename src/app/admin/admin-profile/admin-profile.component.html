@@ -1,0 +1,39 @@
+<app-admin-header></app-admin-header>
+<div class="container py-5">
+  <div *ngIf="user" class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <h2 class="text-center mb-4">Thông tin tài khoản</h2>
+        <div class="card">
+          <div class="card-body">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th scope="row"><i class="fas fa-envelope"></i> Email:</th>
+                  <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                  <th scope="row"><i class="fas fa-user"></i> Họ và tên:</th>
+                  <td>{{ user.name }}</td>
+                </tr>
+                <tr>
+                  <th scope="row"><i class="fas fa-user-shield"></i> Chức vụ:</th>
+                  <td>{{ user.role }}</td>
+                </tr>
+                <tr>
+                  <th scope="row"><i class="fas fa-id-card"></i> Mã sinh viên:</th>
+                  <td>{{ user.studentId }}</td>
+                </tr>
+                <tr>
+                  <th scope="row"><i class="fas fa-info-circle"></i> Trạng thái:</th>
+                  <td>{{ user.trangThai }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

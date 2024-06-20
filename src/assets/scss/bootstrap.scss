@@ -1,43 +1,29 @@
 /******* Customized Bootstrap ********/
 
-$primary: #EB1616;
-$secondary: #191C24;
-$light: #6C7293;
-$dark: #000000;
+$primary: #1842b6;
+$secondary: #26d48c;
+$light: #F8F8F9;
+$dark: #000103;
 
-$font-family-base: 'Open Sans', sans-serif;
+$font-family-base: 'Inter', sans-serif;
 
-$headings-font-family: 'Roboto', sans-serif;
+$headings-font-family: 'Saira', sans-serif;
 
-$body-bg: $dark;
+$body-color: #787878;
 
-$body-color: $light;
+$headings-color: $dark;
 
-$headings-color: #FFFFFF;
-
-$headings-font-weight: 700;
+$headings-font-weight: 600;
 
 $display-font-weight: 700;
 
 $enable-responsive-font-sizes: true;
 
-$border-color: $dark;
+$border-radius: 8px;
 
-$input-border-color: $border-color;
+$border-radius-sm: $border-radius;
 
-$nav-tabs-border-color: $border-color;
-
-$nav-tabs-link-hover-border-color: $border-color;
-
-$nav-tabs-link-active-border-color: $border-color;
-
-$input-bg: $dark;
-
-$list-group-color: $body-color;
-
-$list-group-border-color: $border-color;
-
-$border-radius: 5px;
+$border-radius-lg: $border-radius;
 
 $link-decoration: none;
 

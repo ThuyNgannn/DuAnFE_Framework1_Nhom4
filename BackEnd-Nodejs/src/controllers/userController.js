@@ -1,61 +1,88 @@
 const User = require('../models/user');
 
-// Tạo user mới
+// Tạo mới user
 exports.createUser = async (req, res) => {
   try {
-    const user = new User(req.body);
-    await user.save();
-    res.status(201).send({ message: 'Tạo user thành công!', user });
+    const newUser = new User(req.body);
+    await newUser.save();
+    res.status(201).json(newUser);
   } catch (error) {
-    res.status(400).send({ message: 'Lỗi khi tạo user', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-// Lấy tất cả các user
+// Lấy tất cả users
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).send({ message: 'Lấy danh sách user thành công!', users });
+    res.status(200).json(users);
   } catch (error) {
-    res.status(500).send({ message: 'Lỗi khi lấy danh sách user', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-// Lấy một user theo ID
+// Lấy user theo ID
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
-      return res.status(404).send({ message: 'Không tìm thấy user' });
+      return res.status(404).json({ message: 'User not found' });
     }
-    res.status(200).send({ message: 'Lấy user thành công!', user });
+    res.status(200).json(user);
   } catch (error) {
-    res.status(500).send({ message: 'Lỗi khi lấy user', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-// Cập nhật một user theo ID
+// Cập nhật user theo ID
 exports.updateUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-    if (!user) {
-      return res.status(404).send({ message: 'Không tìm thấy user' });
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
     }
-    res.status(200).send({ message: 'Cập nhật user thành công!', user });
+    res.status(200).json(updatedUser);
   } catch (error) {
-    res.status(400).send({ message: 'Lỗi khi cập nhật user', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-// Xóa một user theo ID
+// Xóa user theo ID
 exports.deleteUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
-    if (!user) {
-      return res.status(404).send({ message: 'Không tìm thấy user' });
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' });
     }
-    res.status(200).send({ message: 'Xóa user thành công!', user });
+    res.status(200).json({ message: 'User deleted' });
   } catch (error) {
-    res.status(500).send({ message: 'Lỗi khi xóa user', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 };
+
+// Toggle trạng thái của người dùng
+exports.toggleUserStatus = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Toggle trạng thái 'đang hoạt động' và 'ngưng hoạt động'
+    user.trangThai = user.trangThai === 'đang hoạt động' ? 'ngưng hoạt động' : 'đang hoạt động';
+    await user.save(); // Lưu thay đổi vào cơ sở dữ liệu
+
+    res.status(200).json({ trangThai: user.trangThai });
+  } catch (error) {
+    console.error('Error toggling user status:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+
+  
+
+

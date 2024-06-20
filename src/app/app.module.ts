@@ -1,45 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { PostService } from './Admin/post.service';
-import { UserService } from './Admin/user.service';
-
-
-import { HomeComponent } from './Admin/home/home.component';
-import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.component';
-
-import { ProductEditComponent } from './Admin/product-edit/product-edit.component';
-import { ProductAddComponent } from './Admin/product-add/product-add.component';
-import { ProductlistComponent } from './Admin/productlist/productlist.component';
-
-import { AcccoutlistComponent } from './Admin/acccoutlist/acccoutlist.component';
-
-import { PagenotfoundComponent } from './Admin/pagenotfound/pagenotfound.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './/app-routing.module';
+import { AdminComponent } from './admin/admin.component';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
+import { AuthInterceptor } from './auth.interceptor';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductlistComponent,
-    HomeComponent,
-    ProductAddComponent,
-    AcccoutlistComponent,
-    PagenotfoundComponent,
-    ProductEditComponent,
-    AdminLayoutComponent,
-
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    AdminModule,
+
   ],
-  providers: [PostService,UserService],
+  providers: [AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
