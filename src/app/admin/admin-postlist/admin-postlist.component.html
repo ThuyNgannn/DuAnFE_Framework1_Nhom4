@@ -9,6 +9,7 @@
           <th scope="col">Tiêu đề</th>
           <th scope="col">Tác giả</th>
           <th scope="col">Loại</th>
+          <th scope="col">Hình ảnh</th>
           <th scope="col">Ngày đăng</th>
           <th scope="col">Thao tác</th>
         </tr>
@@ -19,10 +20,13 @@
           <td>{{ post.title }}</td>
           <td>{{ post.author }}</td>
           <td>{{ getCategoryName(post.categoryId) }}</td>
+          <td>
+            <img *ngIf="post.image" [src]="'http://localhost:3000/uploads/' + post.image" class="img-fluid img-thumbnail" style="max-width: 100px;" alt="Hình ảnh">
+            <span *ngIf="!post.image">Không có hình ảnh</span>
+          </td>
           <td>{{ post.createdAt | date }}</td>
           <td>
-            <button class="btn btn-primary btn-sm me-2" [routerLink]="'/admin/admin-post/' + post._id"><i
-                class="bi bi-pencil"></i> Sửa</button>
+            <button class="btn btn-primary btn-sm me-2" [routerLink]="'/admin/admin-post/' + post._id"><i class="bi bi-pencil"></i> Sửa</button>
             <button class="btn btn-danger btn-sm" (click)="deletePost(post._id)"><i class="bi bi-trash"></i> Xóa</button>
           </td>
         </tr>

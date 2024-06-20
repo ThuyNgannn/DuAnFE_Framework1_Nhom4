@@ -14,6 +14,7 @@ export class AdminPostAddComponent implements OnInit {
   postForm: FormGroup;
   errorMessage: string = '';
   categories: any[] = [];
+  selectedFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +27,8 @@ export class AdminPostAddComponent implements OnInit {
       content: ['', Validators.required],
       subtitle: [''],
       author: ['', Validators.required],
-      categoryId: ['', Validators.required]
+      categoryId: ['', Validators.required],
+      image: [null]
     });
   }
 
@@ -45,19 +47,30 @@ export class AdminPostAddComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
   submitForm() {
     if (this.postForm.valid) {
-      this.postService.createPost(this.postForm.value).subscribe({
-        next: () => {
-          alert('Thêm bài viết mới thành công!');
-          this.router.navigate(['admin/admin-post']);
-        },
-        error: (err) => {
-          this.errorMessage = 'Failed to add new post';
-        }
-      });
-    } else {
-      this.errorMessage = 'Vui lòng điền đầy đủ thông tin';
-    }
-  }
+      const formData = this.postForm.value;
+      if (this.selectedFile) {
+        formData.image =
+
+this.selectedFile;
 }
+this.postService.createPost(formData).subscribe({
+next: () => {
+alert('Thêm bài viết mới thành công!');
+this.router.navigate(['admin/admin-post']);
+},
+error: (err) => {
+this.errorMessage = 'Failed to add new post';
+}
+});
+} else {
+this.errorMessage = 'Vui lòng điền đầy đủ thông tin';
+}
+}
+}
+

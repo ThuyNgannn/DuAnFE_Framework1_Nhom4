@@ -11,7 +11,6 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  // Get all posts
   getAllPosts(): Observable<any[]> {
     return this.http.get<any[]>(this.urlPost);
   }
@@ -20,21 +19,26 @@ export class PostService {
     return this.http.get<any>(`${this.urlPost}/${id}`);
   }
 
-  // Create a new post
   createPost(dataPost: any): Observable<any> {
-    return this.http.post<any>(this.urlPost, dataPost);
+    const formData = new FormData();
+    for (const key in dataPost) {
+      formData.append(key, dataPost[key]);
+    }
+    return this.http.post<any>(this.urlPost, formData);
   }
 
-  // Update a post by ID
   updatePost(postId: string, dataPost: any): Observable<any> {
-    return this.http.put<any>(`${this.urlPost}/${postId}`, dataPost);
+    const formData = new FormData();
+    for (const key in dataPost) {
+      formData.append(key, dataPost[key]);
+    }
+    return this.http.put<any>(`${this.urlPost}/${postId}`, formData);
   }
 
-  // Delete a post by ID
   deletePost(postId: string): Observable<any> {
     return this.http.delete<any>(`${this.urlPost}/${postId}`);
   }
-  // New methods for comments
+
   addComment(postId: string, comment: any, token: string): Observable<any> {
     const headers = new HttpHeaders().set('x-auth-token', token);
     return this.http.post<any>(`${this.urlPost}/${postId}/comments`, comment, {

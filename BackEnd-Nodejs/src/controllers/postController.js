@@ -1,11 +1,10 @@
 const Post = require('../models/post');
 
-
 // Get all posts
 exports.getAllPosts = async (req, res) => {
   try {
     console.log("Fetching all posts...");
-    const posts = await Post.find().populate('categoryId'); // Sử dụng populate để lấy thông tin của category
+    const posts = await Post.find().populate('categoryId');
     console.log(posts);
     res.status(200).send(posts);
   } catch (error) {
@@ -16,7 +15,7 @@ exports.getAllPosts = async (req, res) => {
 // Get a single post by ID
 exports.getPostById = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id).populate('categoryId', 'name'); // Sử dụng populate để lấy thông tin của category
+    const post = await Post.findById(req.params.id).populate('categoryId', 'name');
     if (!post) {
       return res.status(404).send({ message: 'Post not found' });
     }
@@ -30,7 +29,15 @@ exports.getPostById = async (req, res) => {
 exports.createPost = async (req, res) => {
   try {
     const { title, subtitle, content, author, categoryId, tags } = req.body;
-    const post = new Post({ title, subtitle, content, author, categoryId, tags });
+    const post = new Post({ 
+      title, 
+      subtitle, 
+      content, 
+      author, 
+      categoryId, 
+      tags,
+      image: req.file ? req.file.filename : null
+    });
     await post.save();
     res.status(201).send(post);
   } catch (error) {
@@ -41,7 +48,11 @@ exports.createPost = async (req, res) => {
 // Update a post by ID
 exports.updatePost = async (req, res) => {
   try {
-    const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).populate('categoryId', 'name'); // Sử dụng populate để lấy thông tin của category
+    const updateData = { ...req.body };
+    if (req.file) {
+      updateData.image = `${req.file.filename}`;
+    }
+    const post = await Post.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true }).populate('categoryId', 'name');
     if (!post) {
       return res.status(404).send({ message: 'Post not found' });
     }

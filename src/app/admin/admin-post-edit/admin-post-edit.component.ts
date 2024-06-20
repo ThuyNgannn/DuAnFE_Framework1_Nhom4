@@ -13,6 +13,7 @@ export class AdminPostEditComponent implements OnInit {
   postForm: FormGroup;
   errorMessage: string = '';
   categories: any[] = [];
+  selectedFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +27,8 @@ export class AdminPostEditComponent implements OnInit {
       content: ['', Validators.required],
       subtitle: [''],
       author: ['', Validators.required],
-      categoryId: ['', Validators.required]
+      categoryId: ['', Validators.required],
+      image: [null]
     });
   }
 
@@ -60,9 +62,17 @@ export class AdminPostEditComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
   submitForm() {
     if (this.postForm.valid) {
-      this.postService.updatePost(this.postId, this.postForm.value).subscribe({
+      const formData = this.postForm.value;
+      if (this.selectedFile) {
+        formData.image = this.selectedFile;
+      }
+      this.postService.updatePost(this.postId, formData).subscribe({
         next: () => {
           alert('Cập nhật bài viết thành công!');
           this.router.navigate(['/admin/admin-post']);

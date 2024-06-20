@@ -28,10 +28,17 @@ export class AdminPostlistComponent implements OnInit {
       next: (data: any[]) => {
         console.log('Posts:', data); 
         this.posts = data;
+        this.logImages();
       },
       error: (error: any) => {
         console.error('Lỗi:', error);
       },
+    });
+  }
+
+  logImages() {
+    this.posts.forEach(post => {
+      console.log(post.image);
     });
   }
 
@@ -70,5 +77,4 @@ export class AdminPostlistComponent implements OnInit {
       });
     }
   }
- 
 }
