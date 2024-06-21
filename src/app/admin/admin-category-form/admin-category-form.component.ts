@@ -5,7 +5,7 @@ import { CategoryService } from 'src/app/services/category.service';
 @Component({
   selector: 'app-admin-category-form',
   templateUrl: './admin-category-form.component.html',
-  styleUrls: ['./admin-category-form.component.css']
+  styleUrls: ['./admin-category-form.component.css'],
 })
 export class AdminCategoryFormComponent implements OnInit {
   categoryForm: FormGroup;
@@ -19,12 +19,12 @@ export class AdminCategoryFormComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.categoryForm = this.fb.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const id = params['id'];
       if (id) {
         this.categoryId = id;
@@ -45,15 +45,17 @@ export class AdminCategoryFormComponent implements OnInit {
     if (this.categoryForm.valid) {
       const formData = this.categoryForm.value;
       if (this.isEditMode) {
-        this.categoryService.updateCategory(this.categoryId, formData).subscribe(
-          () => {
-            alert('Cập nhật loại thành công!');
-            this.router.navigate(['/admin/category']);
-          },
-          (error) => {
-            console.error('Lỗi cập nhật:', error);
-          }
-        );
+        this.categoryService
+          .updateCategory(this.categoryId, formData)
+          .subscribe(
+            () => {
+              alert('Cập nhật loại thành công!');
+              this.router.navigate(['/admin/category']);
+            },
+            (error) => {
+              console.error('Lỗi cập nhật:', error);
+            }
+          );
       } else {
         this.categoryService.createCategory(formData).subscribe(
           () => {

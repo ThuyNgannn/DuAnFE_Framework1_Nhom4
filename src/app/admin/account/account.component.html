@@ -1,9 +1,8 @@
-<!-- account.component.html -->
-
 <app-admin-header></app-admin-header>
 
 <div class="container mt-5">
-  <h2>Account Management</h2>
+  <h2>Danh sách tài khoản</h2>
+  <a class="btn btn-primary mb-3" [routerLink]="'/admin/account-add'">Thêm tài khoản</a>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -13,7 +12,9 @@
         <th>Mã sinh viên</th>
         <th>Chức vụ</th>
         <th>Trạng thái</th>
+        <th>Avatar</th>
         <th>Hoạt động</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -25,9 +26,18 @@
         <td>{{ user.role }}</td>
         <td>{{ user.trangThai }}</td>
         <td>
+          <img *ngIf="user.avatar" [src]="'http://localhost:3000/uploads/' + user.avatar"
+            class="img-fluid img-thumbnail" style="max-width: 100px;" alt="Hình ảnh">
+          <span *ngIf="!user.avatar">No avatar</span>
+        </td>
+        <td>
           <button class="btn btn-sm btn-primary me-2" (click)="toggleStatus(user._id)">
             {{ user.trangThai === 'đang hoạt động' ? 'Ngưng hoạt động' : 'Kích hoạt' }}
           </button>
+
+        </td>
+        <td>
+          <a class="btn btn-sm btn-warning" [routerLink]="'/admin/account-edit/' + user._id">Cập nhật</a>
         </td>
       </tr>
     </tbody>

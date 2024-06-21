@@ -3,12 +3,12 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  styleUrls: ['./account.component.css'],
 })
 export class AccountComponent implements OnInit {
   users: any[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -16,10 +16,10 @@ export class AccountComponent implements OnInit {
 
   loadUsers(): void {
     this.userService.getAllUsers().subscribe(
-      data => {
+      (data) => {
         this.users = data;
       },
-      error => {
+      (error) => {
         console.error('Error loading users', error);
       }
     );
@@ -27,7 +27,7 @@ export class AccountComponent implements OnInit {
   toggleStatus(userId: string): void {
     this.userService.toggleUserStatus(userId).subscribe(
       (data) => {
-        const index = this.users.findIndex(user => user._id === userId);
+        const index = this.users.findIndex((user) => user._id === userId);
         if (index !== -1) {
           this.users[index].trangThai = data.trangThai;
         }
@@ -37,5 +37,4 @@ export class AccountComponent implements OnInit {
       }
     );
   }
-  
 }

@@ -14,6 +14,8 @@ import { AdminPostAddComponent } from './admin-post-add/admin-post-add.component
 import { AuthGuard } from '../auth.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountComponent } from './account/account.component';
+import { AccountAddComponent } from './account-add/account-add.component';
+import { AccountEditComponent } from './account-edit/account-edit.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { AccountComponent } from './account/account.component';
     AdminPostEditComponent,
     AdminPostAddComponent,
     AdminHeaderComponent,
-    AccountComponent
+    AccountComponent,
+    AccountAddComponent,
+    AccountEditComponent
   ],
   imports: [
     CommonModule,

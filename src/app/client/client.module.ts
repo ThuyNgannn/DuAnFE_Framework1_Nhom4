@@ -15,6 +15,7 @@ import { ClientPostDetailComponent } from './client-post-detail/client-post-deta
 import { FormsModule } from '@angular/forms';
 import { LoginnComponent } from './loginn/loginn.component';
 import { RegisterrComponent } from './registerr/registerr.component';
+import { ClientSearchComponent } from './client-search/client-search.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { RegisterrComponent } from './registerr/registerr.component';
     ClientPostComponent,
     ClientPostDetailComponent,
     LoginnComponent,
-    RegisterrComponent
+    RegisterrComponent,
+    ClientSearchComponent
   ],
   imports: [
     CommonModule,

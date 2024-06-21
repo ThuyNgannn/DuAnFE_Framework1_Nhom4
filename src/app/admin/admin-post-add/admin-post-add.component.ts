@@ -4,11 +4,10 @@ import { PostService } from 'src/app/services/post.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-admin-post-add',
   templateUrl: './admin-post-add.component.html',
-  styleUrls: ['./admin-post-add.component.css']
+  styleUrls: ['./admin-post-add.component.css'],
 })
 export class AdminPostAddComponent implements OnInit {
   postForm: FormGroup;
@@ -28,7 +27,7 @@ export class AdminPostAddComponent implements OnInit {
       subtitle: [''],
       author: ['', Validators.required],
       categoryId: ['', Validators.required],
-      image: [null]
+      image: [null],
     });
   }
 
@@ -43,7 +42,7 @@ export class AdminPostAddComponent implements OnInit {
       },
       error: (error) => {
         console.error('Lỗi:', error);
-      }
+      },
     });
   }
 
@@ -55,22 +54,19 @@ export class AdminPostAddComponent implements OnInit {
     if (this.postForm.valid) {
       const formData = this.postForm.value;
       if (this.selectedFile) {
-        formData.image =
-
-this.selectedFile;
+        formData.image = this.selectedFile;
+      }
+      this.postService.createPost(formData).subscribe({
+        next: () => {
+          alert('Thêm bài viết mới thành công!');
+          this.router.navigate(['admin/admin-post']);
+        },
+        error: (err) => {
+          this.errorMessage = 'Failed to add new post';
+        },
+      });
+    } else {
+      this.errorMessage = 'Vui lòng điền đầy đủ thông tin';
+    }
+  }
 }
-this.postService.createPost(formData).subscribe({
-next: () => {
-alert('Thêm bài viết mới thành công!');
-this.router.navigate(['admin/admin-post']);
-},
-error: (err) => {
-this.errorMessage = 'Failed to add new post';
-}
-});
-} else {
-this.errorMessage = 'Vui lòng điền đầy đủ thông tin';
-}
-}
-}
-

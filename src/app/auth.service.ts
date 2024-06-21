@@ -56,4 +56,8 @@ export class AuthService {
   getProfile(): Observable<any> {
     return this.http.get(`${this.authUrl}/profile`);
   }
+
+  updateAvatar(formData: FormData) {
+    return this.http.put<any>(`${this.authUrl}/profile/avatar`, formData);
+  }
 }

@@ -9,7 +9,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { AuthInterceptor } from './auth.interceptor';
-import { AdminModule } from './admin/admin.module';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { AdminModule } from './admin/admin.module';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AdminModule,
+  
 
   ],
   providers: [AuthGuard,

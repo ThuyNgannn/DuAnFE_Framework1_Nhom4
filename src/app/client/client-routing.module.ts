@@ -9,6 +9,7 @@ import { ClientPostComponent } from './client-post/client-post.component';
 import { ClientPostDetailComponent } from './client-post-detail/client-post-detail.component';
 import { LoginnComponent } from './loginn/loginn.component';
 import { RegisterrComponent } from './registerr/registerr.component';
+import { ClientSearchComponent } from './client-search/client-search.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'about', component: ClientAboutComponent},
   { path: 'post', component: ClientPostComponent},
   { path: 'post/:id', component: ClientPostDetailComponent},
+  { path: 'search', component: ClientSearchComponent}
 ];
 
 @NgModule({

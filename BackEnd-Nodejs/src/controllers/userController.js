@@ -3,13 +3,32 @@ const User = require('../models/user');
 // Tạo mới user
 exports.createUser = async (req, res) => {
   try {
-    const newUser = new User(req.body);
-    await newUser.save();
-    res.status(201).json(newUser);
+    const { email, password, name, studentId } = req.body;
+    const avatar = req.file ? `${req.file.filename}` : '/default-avatar.png'; // Lấy đường dẫn của avatar
+
+    // Kiểm tra xem email đã tồn tại chưa
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: 'Email đã tồn tại trong hệ thống' });
+    }
+
+    // Tạo người dùng mới
+    user = new User({
+      email,
+      password,
+      name,
+      studentId,
+      avatar // Lưu đường dẫn của avatar vào cơ sở dữ liệu
+    });
+
+    await user.save();
+    res.status(201).json({ message: 'Thêm người dùng thành công!' });
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error(error);
+    res.status(500).json({ message: 'Thêm người dùng thất bại!!!', error: error.message });
   }
 };
+
 
 // Lấy tất cả users
 exports.getAllUsers = async (req, res) => {
@@ -37,13 +56,18 @@ exports.getUserById = async (req, res) => {
 // Cập nhật user theo ID
 exports.updateUser = async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found' });
+    const updateData = { ...req.body };
+    if (req.file) {
+      updateData.avatar = `${req.file.filename}`;
     }
-    res.status(200).json(updatedUser);
+    const user = await User.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
+    if (!user) {
+      return res.status(404).json({ message: 'Không tìm thấy người dùng' });
+    }
+    res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error(error);
+    res.status(500).json({ message: 'Cập nhật thông tin người dùng thất bại!!!', error: error.message });
   }
 };
 
@@ -80,6 +104,8 @@ exports.toggleUserStatus = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
 
 
 

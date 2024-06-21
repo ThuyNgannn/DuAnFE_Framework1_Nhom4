@@ -29,6 +29,16 @@
                   <th scope="row"><i class="fas fa-info-circle"></i> Trạng thái:</th>
                   <td>{{ user.trangThai }}</td>
                 </tr>
+                <tr>
+                  <th scope="row"><i class="fas fa-image"></i> Avatar:</th>
+                  <td>
+                    <img *ngIf="user.avatar" [src]="'http://localhost:3000/uploads/' + user.avatar" alt="Avatar"
+                      class="img-fluid img-thumbnail" style="max-width: 100px;">
+                    <input type="file" (change)="onFileSelected($event)" class="form-control mt-2">
+                    <button type="button" class="btn btn-primary mt-2" (click)="submitAvatarUpdate()">Cập nhật
+                      Avatar</button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

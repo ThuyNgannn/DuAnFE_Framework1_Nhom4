@@ -17,7 +17,6 @@ const UserSchema = new mongoose.Schema({
   },
   studentId: {
     type: String,
-    required: true
   },
   role: {
     type: String,
@@ -26,6 +25,9 @@ const UserSchema = new mongoose.Schema({
   trangThai: {
     type: String,
     default: 'đang hoạt động'
+  },
+  avatar: {
+    type: String,
   }
 });
 

@@ -23,14 +23,19 @@ export class UserService {
   }
 
   // Create a new user
-  createUser(dataUser: any): Observable<any> {
-    return this.http.post<any>(this.urlUser, dataUser);
+  createUser(userData: any): Observable<any> {
+    const formData = new FormData();
+    for (const key in userData) {
+      formData.append(key, userData[key]);
+    }
+    return this.http.post<any>(this.urlUser, formData);
   }
 
   // Update a user by ID
-  updateUser(userId: string, user: any): Observable<any> {
-    return this.http.put<any>(`${this.urlUser}/${userId}`, user);
+  updateUser(userId: string, userData: FormData) {
+    return this.http.put(`${this.urlUser}/${userId}`, userData);
   }
+  
 
   // Delete a user by ID
   deleteUser(userId: string): Observable<any> {
@@ -50,11 +55,6 @@ export class UserService {
   isAuthenticated(token: string): Observable<any> {
     const headers = new HttpHeaders().set('x-auth-token', token);
     return this.http.get<any>(`${this.urlUser}/isAuthenticated`, { headers });
-  }
-
-  // Lấy danh sách người dùng
-  getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.urlUser);
   }
 
   // Bật hoặc tắt trạng thái của người dùng

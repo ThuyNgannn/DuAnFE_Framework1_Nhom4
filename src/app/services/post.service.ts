@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -48,5 +49,22 @@ export class PostService {
 
   getComments(postId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.urlPost}/${postId}/comments`);
+  }
+
+  removeAccents(str: string): string {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+  searchPosts(keyword: string): Observable<any[]> {
+    const normalizedKeyword = this.removeAccents(keyword.toLowerCase());
+    const regexKeyword = new RegExp(normalizedKeyword, 'i');
+    
+    return this.http.get<any[]>(`${this.urlPost}`).pipe(
+      map(posts => {
+        return posts.filter(post => 
+          regexKeyword.test(this.removeAccents(post.title.toLowerCase())) ||
+          regexKeyword.test(this.removeAccents(post.content.toLowerCase()))
+        );
+      })
+    );
   }
 }

@@ -8,6 +8,8 @@ import { AdminPostEditComponent } from './admin-post-edit/admin-post-edit.compon
 import { AdminCategorylistComponent } from './admin-categorylist/admin-categorylist.component';
 import { AdminCategoryFormComponent } from './admin-category-form/admin-category-form.component';
 import { AccountComponent } from './account/account.component';
+import { AccountAddComponent } from './account-add/account-add.component';
+import { AccountEditComponent } from './account-edit/account-edit.component';
 const routes: Routes = [
   { path: 'admin', component: AdminHomeComponent },
   { path: 'admin-profile', component: AdminProfileComponent },
@@ -17,7 +19,9 @@ const routes: Routes = [
   { path: 'category', component: AdminCategorylistComponent},
   { path: 'category/add', component: AdminCategoryFormComponent},
   { path: 'category/edit/:id', component: AdminCategoryFormComponent},
-  { path: 'account', component: AccountComponent}
+  { path: 'account', component: AccountComponent},
+  { path: 'account-add', component: AccountAddComponent},
+  { path: 'account-edit/:id', component: AccountEditComponent },
 ];
 
 @NgModule({
