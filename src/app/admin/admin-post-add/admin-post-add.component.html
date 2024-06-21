@@ -1,6 +1,5 @@
-<!-- admin-post-add.component.html -->
-
-<div class="container">
+<app-admin-header></app-admin-header>
+<div class="container mt-5">
   <h2 class="mb-4">Thêm bài viết mới</h2>
   <form [formGroup]="postForm" (ngSubmit)="submitForm()">
     <div class="mb-3">
@@ -18,6 +17,10 @@
     <div class="mb-3">
       <label for="author" class="form-label">Tác giả</label>
       <input type="text" class="form-control" id="author" formControlName="author" required>
+    </div>
+    <div class="mb-3">
+      <label for="likes" class="form-label">Lượt thích</label>
+      <input type="number" class="form-control" id="likes" formControlName="likes" value="0" >
     </div>
     <div class="mb-3">
       <label for="categoryId" class="form-label">Loại</label>

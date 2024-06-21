@@ -28,6 +28,7 @@ export class AdminPostAddComponent implements OnInit {
       author: ['', Validators.required],
       categoryId: ['', Validators.required],
       image: [null],
+      likes: [0],
     });
   }
 

@@ -28,7 +28,8 @@ export class AdminPostEditComponent implements OnInit {
       subtitle: [''],
       author: ['', Validators.required],
       categoryId: ['', Validators.required],
-      image: [null]
+      image: [null],
+      likes: ['']
     });
   }
 

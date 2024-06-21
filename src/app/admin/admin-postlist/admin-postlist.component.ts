@@ -26,9 +26,7 @@ export class AdminPostlistComponent implements OnInit {
   loadPosts() {
     this.postService.getAllPosts().subscribe({
       next: (data: any[]) => {
-        console.log('Posts:', data); 
         this.posts = data;
-        this.logImages();
       },
       error: (error: any) => {
         console.error('Lỗi:', error);
@@ -36,16 +34,9 @@ export class AdminPostlistComponent implements OnInit {
     });
   }
 
-  logImages() {
-    this.posts.forEach(post => {
-      console.log(post.image);
-    });
-  }
-
   loadCategories() {
     this.categoryService.getAllCategories().subscribe({
       next: (data: any[]) => {
-        console.log('Categories:', data);
         this.categories = data;
       },
       error: (error: any) => {
@@ -62,6 +53,8 @@ export class AdminPostlistComponent implements OnInit {
       return category ? category.name : 'N/A';
     }
   }
+
+ 
 
   deletePost(postId: string) {
     if (confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) {

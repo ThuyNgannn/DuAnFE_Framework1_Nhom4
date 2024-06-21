@@ -28,7 +28,7 @@ exports.getPostById = async (req, res) => {
 // Create a new post
 exports.createPost = async (req, res) => {
   try {
-    const { title, subtitle, content, author, categoryId, tags } = req.body;
+    const { title, subtitle, content, author, categoryId, tags, likes } = req.body;
     const post = new Post({ 
       title, 
       subtitle, 
@@ -36,7 +36,8 @@ exports.createPost = async (req, res) => {
       author, 
       categoryId, 
       tags,
-      image: req.file ? req.file.filename : null
+      image: req.file ? req.file.filename : null,
+      likes: likes || 0
     });
     await post.save();
     res.status(201).send(post);
@@ -72,5 +73,22 @@ exports.deletePost = async (req, res) => {
     res.status(200).send({ message: 'Post deleted successfully', post });
   } catch (error) {
     res.status(500).send({ message: 'Failed to delete post', error: error.message });
+  }
+};
+
+exports.likePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).send({ message: 'Bài đăng không tồn tại' });
+    }
+
+    // Tăng số lượt thích lên 1 và lưu lại
+    post.likes += 1;
+    await post.save();
+
+    res.status(200).send({ message: 'Thích bài đăng thành công', post });
+  } catch (error) {
+    res.status(500).send({ message: 'Lỗi khi thực hiện thao tác thích bài đăng', error: error.message });
   }
 };

@@ -22,7 +22,6 @@ export class ClientPostComponent implements OnInit {
   }
 
   fetchAllPosts(): void {
-    //ghi chú
     this.postService.getAllPosts().subscribe(
       (posts: any[]) => {
         this.posts = posts;
@@ -36,7 +35,6 @@ export class ClientPostComponent implements OnInit {
   loadCategories() {
     this.categoryService.getAllCategories().subscribe({
       next: (data: any[]) => {
-        console.log('Categories:', data); // Log dữ liệu danh mục để kiểm tra
         this.categories = data;
       },
       error: (error: any) => {
@@ -52,5 +50,10 @@ export class ClientPostComponent implements OnInit {
       const category = this.categories.find((cat) => cat._id === categoryId);
       return category ? category.name : 'N/A';
     }
+  }
+
+  likePost(post: any): void {
+    post.likes += 1;
+    this.postService.updatePost(post._id, { likes: post.likes }).subscribe();
   }
 }
