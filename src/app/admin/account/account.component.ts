@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/auth.service';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -7,11 +8,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AccountComponent implements OnInit {
   users: any[] = [];
+  isAdmin: boolean = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadUsers();
+    this.checkAdminRole();
   }
 
   loadUsers(): void {
@@ -24,7 +27,16 @@ export class AccountComponent implements OnInit {
       }
     );
   }
+
+  checkAdminRole(): void {
+    this.isAdmin = this.authService.hasRole(['admin']);
+  }
+
   toggleStatus(userId: string): void {
+    if (!this.isAdmin) {
+      console.error('Permission denied: Only admins can toggle user status.');
+      return;
+    }
     this.userService.toggleUserStatus(userId).subscribe(
       (data) => {
         const index = this.users.findIndex((user) => user._id === userId);

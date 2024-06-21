@@ -40,11 +40,11 @@ export class AuthService {
     return false;
   }
 
-  hasRole(expectedRole: string): boolean {
+  hasRole(expectedRoles: string[]): boolean {
     const token = this.getToken();
     if (token) {
       const decoded: any = jwt_decode(token);
-      return decoded.user.role === expectedRole; // Kiểm tra vai trò của người dùng từ token
+      return expectedRoles.includes(decoded.user.role);
     }
     return false;
   }

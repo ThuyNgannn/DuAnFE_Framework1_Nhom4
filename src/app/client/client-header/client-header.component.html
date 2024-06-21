@@ -52,7 +52,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Trang</a>
                         <div class="dropdown-menu rounded">
                             <a routerLink="/client/blog" class="dropdown-item">Nhân viên</a>
-                            <a *ngIf="authService.hasRole('admin')" routerLink="/admin" class="dropdown-item">Trang quản lý</a>
+                            <a *ngIf="authService.hasRole(['admin', 'user'])" routerLink="/admin" class="dropdown-item">Trang quản lý</a>
                             <a routerLink="/client/profile" class="dropdown-item">Hồ Sơ</a>
                             <a *ngIf="!authService.isLoggedIn" routerLink="/login" class="dropdown-item">Đăng Nhập</a>
                             <button *ngIf="authService.isLoggedIn" (click)="logout()" class="dropdown-item">Đăng Xuất</button>

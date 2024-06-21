@@ -24,7 +24,7 @@ export class ClientPostComponent implements OnInit {
   fetchAllPosts(): void {
     this.postService.getAllPosts().subscribe(
       (posts: any[]) => {
-        this.posts = posts;
+        this.posts = posts.filter(post => post.likes > 20); 
       },
       (error) => {
         console.error('Error fetching posts:', error);
@@ -54,6 +54,14 @@ export class ClientPostComponent implements OnInit {
 
   likePost(post: any): void {
     post.likes += 1;
-    this.postService.updatePost(post._id, { likes: post.likes }).subscribe();
+    this.postService.updatePost(post._id, { likes: post.likes }).subscribe(
+      () => {
+        // Cập nhật danh sách bài viết sau khi thích
+        this.fetchAllPosts();
+      },
+      (error) => {
+        console.error('Error updating post likes:', error);
+      }
+    );
   }
 }

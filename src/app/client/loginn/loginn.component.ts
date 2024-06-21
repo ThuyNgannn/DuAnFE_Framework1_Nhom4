@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class LoginnComponent {
   email: string = '';
   password: string = '';
-  errorMessage: string = '';
+  errorMessage: string | null = null;
 
   constructor(public authService: AuthService, private router: Router) {}
 
@@ -17,7 +17,7 @@ export class LoginnComponent {
     this.authService.login({ email: this.email, password: this.password }).subscribe(
       res => {
         // Sau khi đăng nhập thành công, kiểm tra vai trò và chuyển hướng tới trang phù hợp
-        if (this.authService.hasRole('admin')) {
+        if (this.authService.hasRole(['admin', 'user'])) {
           this.router.navigate(['/admin']);
         } else {
           this.router.navigate(['/home']);

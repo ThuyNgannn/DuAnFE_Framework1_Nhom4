@@ -2,7 +2,7 @@
 
 <div class="container mt-5">
   <h2>Danh sách tài khoản</h2>
-  <a class="btn btn-primary mb-3" [routerLink]="'/admin/account-add'">Thêm tài khoản</a>
+  <a *ngIf="isAdmin" class="btn btn-primary mb-3" [routerLink]="'/admin/account-add'">Thêm tài khoản</a>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -31,13 +31,12 @@
           <span *ngIf="!user.avatar">No avatar</span>
         </td>
         <td>
-          <button class="btn btn-sm btn-primary me-2" (click)="toggleStatus(user._id)">
+          <button *ngIf="isAdmin" class="btn btn-sm btn-primary me-2" (click)="toggleStatus(user._id)">
             {{ user.trangThai === 'đang hoạt động' ? 'Ngưng hoạt động' : 'Kích hoạt' }}
           </button>
-
         </td>
         <td>
-          <a class="btn btn-sm btn-warning" [routerLink]="'/admin/account-edit/' + user._id">Cập nhật</a>
+          <a *ngIf="isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/account-edit/' + user._id">Cập nhật</a>
         </td>
       </tr>
     </tbody>
